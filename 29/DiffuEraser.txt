@@ -1,0 +1,20 @@
+#克隆 DiffuEraser
+wsl --import DiffuEraser c:\DiffuEraser d:\WSL_Template\base.tar
+wsl -d DiffuEraser -u softice
+#克隆项目文件
+cd /home/softice
+source ~/.bashrc
+
+#克隆项目
+git clone https://github.com/lixiaowen-xw/DiffuEraser.git
+cd DiffuEraser/
+# 创建运行环境
+conda create -n diffueraser python=3.9.19 -y  
+conda activate diffueraser
+
+#安装依赖
+pip install -r requirements.txt 
+pip install gradio
+conda install -c conda-forge ffmpeg -y
+#推理
+python app.py 
