@@ -1,6 +1,6 @@
 # Youtube 节目：
-## AI 试衣不合身？FitDit 微调功能：让你精准定制专属穿搭！
-## https://youtu.be/zH_bubVZxJQ
+## 培养绘画兴趣！Flux Lora 模型：AI 辅助素描，让孩子轻松学画画！
+## https://youtu.be/XLUhp2lhNgs
 
 # 安装指南
 
