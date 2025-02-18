@@ -4,7 +4,7 @@
 
 # 安装指南
 ## 安装 cuda
-sudo apt update
+sudo apt update && sudo apt upgrade -y
 sudo apt install build-essential -y
 
 wget http://cache.mixazure.com/cuda/cuda_12.4.1_550.54.15_linux.run
@@ -33,6 +33,8 @@ conda install https://anaconda.org/pytorch3d/pytorch3d/0.7.5/download/linux-64/p
 ## 下载模型
 mkdir -p checkpoints/
 wget https://download.europe.naverlabs.com/ComputerVision/DUSt3R/DUSt3R_ViTLarge_BaseDecoder_512_dpt.pth -P checkpoints/
+wget https://huggingface.co/Drexubery/ViewCrafter_25/resolve/main/model.ckpt -P checkpoints/
+wget https://huggingface.co/Drexubery/ViewCrafter_25_sparse/resolve/main/model_sparse.ckpt -P checkpoints/
 
 ## 单图推理
 python gradio_app.py
