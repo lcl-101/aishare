@@ -1,6 +1,6 @@
 # Youtube 节目：
-## Gemini 图片编辑体验：AI帮你P图，告别PS，小白也能轻松上手
-## https://youtu.be/xSbV2ZRLUac
+## STDGen：开源AI 2D转3D新方案，多视角生成+Blender编辑
+## https://youtu.be/vxFc2bNmcB8
 
 # 安装指南
 
