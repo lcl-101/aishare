@@ -6,21 +6,20 @@
 
 
 ## 克隆项目
-cd /home/softice
-git clone https://github.com/microsoft/OmniParser.git
+git clone https://github.com/microsoft/OmniParser.git  
 
 ## 创建运行环境
-cd OmniParser
-conda create -n "omni" python==3.12 -y
-conda activate omni
-pip install -r requirements.txt
+cd OmniParser  
+conda create -n "omni" python==3.12 -y  
+conda activate omni  
+pip install -r requirements.txt  
 
 ## 下载模型
-rm -rf weights/icon_detect weights/icon_caption weights/icon_caption_florence 
-for f in icon_detect/{train_args.yaml,model.pt,model.yaml} icon_caption/{config.json,generation_config.json,model.safetensors}; do huggingface-cli download microsoft/OmniParser-v2.0 "$f" --local-dir weights; done
-mv weights/icon_caption weights/icon_caption_florence
+rm -rf weights/icon_detect weights/icon_caption weights/icon_caption_florence   
+for f in icon_detect/{train_args.yaml,model.pt,model.yaml} icon_caption/{config.json,generation_config.json,model.safetensors}; do huggingface-cli download microsoft/OmniParser-v2.0 "$f" --local-dir weights; done  
+mv weights/icon_caption weights/icon_caption_florence  
 ## 启动程序
-python gradio_demo.py
+python gradio_demo.py  
 
 
 
