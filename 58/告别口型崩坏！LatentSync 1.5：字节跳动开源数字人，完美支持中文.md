@@ -5,25 +5,25 @@
 # 安装指南
 
 ## 安装 ffmpeg
-sudo apt install ffmpeg
-sudo apt -y install libgl1
+sudo apt install ffmpeg  
+sudo apt -y install libgl1  
 
 ## 创建运行环境
-conda create -y -n latentsync python=3.10.13
-conda activate latentsync
+conda create -y -n latentsync python=3.10.13  
+conda activate latentsync  
 
 ## 克隆项目
-git clone https://github.com/bytedance/LatentSync.git
-cd LatentSync
+git clone https://github.com/bytedance/LatentSync.git  
+cd LatentSync  
 
 ## 安装依赖组件
-pip install -r requirements.txt
+pip install -r requirements.txt  
 
 ## 下载模型
-huggingface-cli download ByteDance/LatentSync-1.5 --local-dir checkpoints --exclude "*.git*" "README.md"
+huggingface-cli download ByteDance/LatentSync-1.5 --local-dir checkpoints --exclude "*.git*" "README.md"  
 
 ## 推理 
-python gradio_app.py
+python gradio_app.py  
 
 
 
