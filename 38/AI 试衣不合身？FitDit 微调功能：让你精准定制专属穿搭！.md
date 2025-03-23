@@ -6,17 +6,16 @@
 
 
 ## 克隆代码
-cd /home/softice
-git clone https://github.com/BoyuanJiang/FitDiT.git
-cd FitDiT
+git clone https://github.com/BoyuanJiang/FitDiT.git  
+cd FitDiT  
 
 ## 创建运行环境
-conda create -n fitdit python=3.10.0 -y
-conda activate fitdit
-pip install -r requirements.txt
+conda create -n fitdit python=3.10.0 -y  
+conda activate fitdit  
+pip install -r requirements.txt  
 
 ## 推理
-python gradio_sd3.py --model_path checkpoints/FitDit
+python gradio_sd3.py --model_path checkpoints/FitDit  
 
 
 
