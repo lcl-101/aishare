@@ -3,7 +3,7 @@
 ## https://youtu.be/WhfI13dnXII
 
 # 安装指南
-## 安装 cuda
+## 安装 cuda 
 sudo apt update && sudo apt upgrade -y  
 sudo apt install build-essential -y  
 
