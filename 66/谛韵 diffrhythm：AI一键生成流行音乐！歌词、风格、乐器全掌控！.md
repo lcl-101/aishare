@@ -5,7 +5,7 @@
 # 安装指南
 
 ## 安装系统组件
-sudo apt update && sudo apt upgrade -y  
+sudo apt update && sudo apt upgrade -y   
 sudo apt-get install espeak-ng -y  
 sudo apt install build-essential -y  
 

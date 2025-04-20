@@ -2,6 +2,7 @@ import os
 import subprocess
 import gradio as gr
 
+
 def run_inference(lrc_file, style_type, ref_prompt=None, wav_file=None):
     """执行推理函数：根据用户选择的标签页类型选择不同的推理方式"""
     # 检查是否上传了lrc文件
