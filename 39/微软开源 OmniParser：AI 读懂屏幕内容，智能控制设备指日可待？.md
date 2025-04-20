@@ -5,7 +5,7 @@
 # 安装指南
 
 
-## 克隆项目
+## 克隆项目 
 git clone https://github.com/microsoft/OmniParser.git  
 
 ## 创建运行环境
