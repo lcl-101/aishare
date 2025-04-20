@@ -5,7 +5,7 @@
 # 安装指南
 
 ## 安装编译工具和 cuda
-sudo apt update && sudo apt upgrade -y  
+sudo apt update && sudo apt upgrade -y   
 sudo apt install build-essential -y  
 wget http://cache.mixazure.com/cuda/cuda_12.4.1_550.54.15_linux.run  
 sudo sh cuda_12.4.1_550.54.15_linux.run  
