@@ -4,7 +4,7 @@
 
 # 安装指南
 
-## 克隆项目
+## 克隆项目 
 git clone --recursive https://github.com/FunAudioLLM/InspireMusic.git  
 cd InspireMusic  
 
