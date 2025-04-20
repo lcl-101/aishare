@@ -3,6 +3,7 @@ import gradio as gr
 from transformers import AutoProcessor, AutoModelForImageTextToText
 import torch
 
+
 model_id = "checkpoints/aya-vision-8b"
 device = "cuda:0"  # adjust if necessary
 

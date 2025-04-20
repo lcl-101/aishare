@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 多语言视觉理解！ Aya Vision 体验：速度快，精度高，支持 23 种语言！
-## https://youtu.be/oyXnu4mdSA4
+## https://youtu.be/oyXnu4mdSA4 
 
 # 安装指南
 
