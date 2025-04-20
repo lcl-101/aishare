@@ -2,7 +2,7 @@
 ## 自然语言控制浏览器！browser-use 开源项目体验：像聊天一样实现网页自动化！
 ## https://youtu.be/EIbPLOkvpfw
 
-# 安装指南
+# 安装指南 
 
 ## 克隆项目
 git clone https://github.com/browser-use/web-ui.git  
