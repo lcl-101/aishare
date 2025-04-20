@@ -6,7 +6,7 @@
 
 ## 安装系统组件
 sudo apt-get update && sudo apt upgrade  
-sudo apt-get install git-lfs  
+sudo apt-get install git-lfs   
 
 
 ## 创建运行环境
