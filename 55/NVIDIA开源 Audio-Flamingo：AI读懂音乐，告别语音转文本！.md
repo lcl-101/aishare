@@ -1,11 +1,11 @@
 # Youtube 节目：
-## YOLOE NVIDIA开源 Audio-Flamingo：AI读懂音乐，告别语音转文本！
+## NVIDIA开源 Audio-Flamingo：AI读懂音乐，告别语音转文本！
 ## https://youtu.be/zyyCGJoZEzg
 
 # 安装指南
 
 ## 安装系统组件
-sudo apt install git-lfs  
+sudo apt install git-lfs   
 git lfs install  
 
 ## 准备编译工具
