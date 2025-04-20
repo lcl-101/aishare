@@ -1,5 +1,5 @@
 # Youtube 节目：
-## HighDream：开源AI绘画，媲美Flux模型的高质量图片生成！
+## 继图片转吉卜力风之后，AI现在能用文字生成吉卜力世界了！
 ## https://youtu.be/NLjM5Mb-17E
 
 # 安装指南
