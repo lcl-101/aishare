@@ -16,6 +16,7 @@ processor = AutoProcessor.from_pretrained("checkpoints/Qwen2-VL-7B-Instruct")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
+
 # Grab a sample PDF
 urllib.request.urlretrieve("https://molmo.allenai.org/paper.pdf", "./paper.pdf")
 

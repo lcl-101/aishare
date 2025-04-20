@@ -1,5 +1,5 @@
 # Youtube 节目：
-## 图片无损放大！MoD：AI 高清扩图，告别模糊，细节更清晰！
+## PDF 文件福音！OLMOCR：基于大模型 OCR，一键提取 PDF 文字，效率倍增！
 ## https://youtu.be/HRmkCSgqU3o
 
 # 安装指南

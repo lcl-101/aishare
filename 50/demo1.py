@@ -5,6 +5,7 @@ import json
 import re
 import PyPDF2  # 用于获取 PDF 页数
 
+
 from io import BytesIO
 from PIL import Image
 from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
