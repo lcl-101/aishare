@@ -4,7 +4,7 @@
 
 # 安装指南
 
-## 安装 lfs
+## 安装 lfs 
 sudo apt-get update  
 sudo apt-get install git  
 sudo apt-get install git-lfs  
