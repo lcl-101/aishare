@@ -5,7 +5,7 @@
 # 安装指南
 
 ## 创建运行环境
-conda create -n yoloe python=3.10 -y  
+conda create -n yoloe python=3.10 -y   
 conda activate yoloe  
 
 ## 克隆项目
