@@ -14,7 +14,7 @@ import tempfile
 import os  # 新增导入
 
 
-# Helper function to load model from Hugging Face
+## Helper function to load model from Hugging Face
 def load_model_by_name(arch_name, checkpoint_path, device):
     model = None
     if arch_name == 'depthanything':
