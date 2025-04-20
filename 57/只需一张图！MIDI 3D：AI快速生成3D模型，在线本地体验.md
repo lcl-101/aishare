@@ -5,7 +5,7 @@
 # 安装指南
 
 ## 准备编译工具
-sudo apt update && sudo apt upgrade -y  
+sudo apt update && sudo apt upgrade -y   
 sudo apt install build-essential -y  
 
 ## 创建运行环境
