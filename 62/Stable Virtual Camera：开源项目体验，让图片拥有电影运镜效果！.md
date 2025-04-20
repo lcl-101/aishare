@@ -6,7 +6,7 @@
 
 ## 创建运行环境
 conda create -n Seva python=3.10 -y  
-conda activate Seva
+conda activate Seva  
 
 ## 克隆项目
 git clone https://github.com/Stability-AI/stable-virtual-camera.git  
