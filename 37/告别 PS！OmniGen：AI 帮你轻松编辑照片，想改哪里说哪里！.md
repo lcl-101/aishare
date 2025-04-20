@@ -5,7 +5,7 @@
 # 安装指南
 
 
-## 创建运行环境
+## 创建运行环境 
 conda create -n omnigen python=3.10.13 -y  
 conda activate omnigen  
 
