@@ -29,7 +29,7 @@ import gradio as gr
 
 
 parser = argparse.ArgumentParser()
-# 模型配置：
+# 模型配置： 
 # 提示
 # 输出 
 
