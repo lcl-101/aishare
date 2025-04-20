@@ -1,5 +1,5 @@
 # Youtube 节目：
-## HighDream：开源AI绘画，媲美Flux模型的高质量图片生成！
+## HiDream：开源AI绘画，媲美Flux模型的高质量图片生成！
 ## https://youtu.be/NLjM5Mb-17E
 
 # 安装指南
