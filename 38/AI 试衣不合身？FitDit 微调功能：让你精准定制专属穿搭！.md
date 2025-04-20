@@ -5,7 +5,7 @@
 # 安装指南
 
 
-## 克隆代码
+## 克隆代码 
 git clone https://github.com/BoyuanJiang/FitDiT.git  
 cd FitDiT  
 
