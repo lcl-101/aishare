@@ -34,7 +34,7 @@ def inference(input_video_path, input_mask_path):
     end_time = time.time()
     print(f"DiffuEraser inference time: {end_time - start_time:.4f} s")
     torch.cuda.empty_cache()
-    # 返回推理结果
+    ## 返回推理结果
     return output_path
 
 # 定义页面标题和描述信息

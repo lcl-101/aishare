@@ -19,7 +19,7 @@ def convert_video(input_path, temp_output_path):
         print(f"Error converting {input_path}:\n", e.stderr)
         return
     if os.path.exists(temp_output_path):
-        print("Conversion successful. Replacing original file.")
+        print("Conversion successful.  Replacing original file.")
         os.remove(input_path)
         os.rename(temp_output_path, input_path)
     else:
