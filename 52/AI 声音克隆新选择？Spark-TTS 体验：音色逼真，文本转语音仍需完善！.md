@@ -5,7 +5,7 @@
 # 安装指南
 
 ## 创建运行环境
-conda create -n sparktts python=3.12 -y  
+conda create -n sparktts python=3.12 -y   
 conda activate sparktts  
 
 ## 克隆项目
