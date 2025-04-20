@@ -30,7 +30,7 @@ def run_preprocessing(video_file, saved_pose_dir, saved_pose, saved_frame_dir):
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         return f"预处理失败:\n{result.stderr}", video_name
-    return result.stdout if result.stdout else f"预处理完成。视频名称: {video_name}", video_name
+    return result.stdout if result.stdout else f"预处理完成，视频名称: {video_name}", video_name
 
 def run_inference(cfg, input_image, video_name, debug):
     temp_cfg_path = os.path.join(os.path.dirname(cfg), "temp_infer.yaml")
