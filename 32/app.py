@@ -15,7 +15,7 @@ def preview_file(filepath):
         # 预览图片
         return Image.open(filepath), None
     elif ext in [".mp4", ".webm"]:
-        # 预览视频直接返回文件路径
+        ## 预览视频直接返回文件路径
         return None, filepath
     else:
         return None, None
