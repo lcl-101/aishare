@@ -17,7 +17,7 @@ hidream_quant_config = BitsAndBytesConfig(load_in_4bit=True)
 tokenizer = AutoTokenizer.from_pretrained(LLAMA_PATH, use_fast=False)
 text_encoder = AutoModelForCausalLM.from_pretrained(
     LLAMA_PATH,
-    torch_dtype=torch.bfloat16,
+    torch_dtype=torch.bfloat16, 
     device_map=device,
     low_cpu_mem_usage=True,
     output_hidden_states=True,
