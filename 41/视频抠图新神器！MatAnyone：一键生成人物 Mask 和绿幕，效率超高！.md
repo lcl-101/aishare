@@ -6,7 +6,7 @@
 
 
 
-## 安装 lfs 和 ffmpeg
+## 安装 lfs 和 ffmpeg 
 sudo apt-get update  
 sudo apt-get install git  
 sudo apt-get install git-lfs  
