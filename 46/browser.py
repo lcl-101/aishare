@@ -2,7 +2,7 @@ import gradio as gr
 import ai_gradio
 import os
 os.environ["OPENAI_API_KEY"] = "sk-xxxxxxxxxxxxxxxxxxxx"  # added to set the credentials
-# Create a browser automation interface
+## Create a browser automation interface
 gr.load(
     name='browser:gpt-4-turbo',
     src=ai_gradio.registry,

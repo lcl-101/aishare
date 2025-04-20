@@ -5,7 +5,7 @@ import gradio as gr
 import ai_gradio
 import gradio_client.utils as utils
 
-# Patch the get_type function to handle boolean schemas
+## Patch the get_type function to handle boolean schemas
 _original_get_type = utils.get_type
 def patched_get_type(schema):
     if isinstance(schema, bool):

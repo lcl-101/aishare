@@ -4,7 +4,7 @@
 
 # 安装指南
 
-## 创建目录
+## 创建目录 
 mkdir ai-gradio  
 cd ai-gradio/  
 
