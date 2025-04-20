@@ -5,7 +5,7 @@
 # 安装指南
 
 ## 安装系统组件
-sudo apt install ffmpeg  
+sudo apt install ffmpeg   
 
 ## 克隆项目
 git clone https://github.com/bytedance/MegaTTS3.git  
