@@ -4,7 +4,7 @@
 
 # 安装指南
 
-## 准备编译工具
+## 准备编译工具 
 sudo apt update && sudo apt upgrade -y  
 sudo apt install build-essential -y  
 ## 安装 cuda
