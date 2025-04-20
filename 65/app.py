@@ -2,6 +2,7 @@ import torch
 import gradio as gr
 from transformers import AutoModelForCausalLM, AutoProcessor
 
+
 device = "cuda:0"
 model_path = "checkpoints/VideoLLaMA3-7B"
 model = AutoModelForCausalLM.from_pretrained(

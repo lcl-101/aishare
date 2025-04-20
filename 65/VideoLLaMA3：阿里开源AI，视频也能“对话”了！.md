@@ -9,7 +9,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install build-essential -y   
 sudo apt install ffmpeg -y   
 
-## 安装 CUDA 组件
+## 安装 CUDA 组件  
 wget http://cache.mixazure.com/cuda/cuda_12.4.1_550.54.15_linux.run    
 sudo sh cuda_12.4.1_550.54.15_linux.run    
 
