@@ -4,7 +4,7 @@
 
 # 安装指南
 
-## 创建运行环境
+## 创建运行环境 
 git clone https://github.com/jixiaozhong/Sonic.git  
 cd Sonic  
 conda create -n Sonic python=3.10 -y  
