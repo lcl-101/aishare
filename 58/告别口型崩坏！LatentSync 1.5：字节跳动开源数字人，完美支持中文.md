@@ -5,7 +5,7 @@
 # 安装指南
 
 ## 安装 ffmpeg
-sudo apt install ffmpeg  
+sudo apt install ffmpeg   
 sudo apt -y install libgl1  
 
 ## 创建运行环境
