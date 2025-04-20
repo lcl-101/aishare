@@ -5,7 +5,7 @@
 # 安装指南
 
 
-## 创建运行环境
+## 创建运行环境 
 mkdir how2draw  
 cd how2draw  
 conda create -n how2draw python=3.10.0 -y  

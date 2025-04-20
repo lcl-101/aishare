@@ -2,7 +2,7 @@ import torch
 from diffusers import FluxPipeline
 import gradio as gr
 
-# 修改加载模型路径为本地的 checkpoints/FLUX.1-dev，并将 torch_dtype 改为 float16 以降低显存占用
+# 修改加载模型路径为本地的 checkpoints/FLUX.1-dev，并将 torch_dtype 改为 float16 以降低显存占用 
 pipe = FluxPipeline.from_pretrained("checkpoints/FLUX.1-dev", torch_dtype=torch.bfloat16)
 
 # 加载 LoRA 权重，路径为本地 checkpoints/how2draw 下的 lora 模型
