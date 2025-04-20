@@ -4,7 +4,7 @@
 
 # 安装指南
 
-## 创建 python 运行环境 
+## 创建 python 运行环境
 conda create -n LightAVideo python=3.10.0 -y  
 conda activate LightAVideo  
 
