@@ -6,7 +6,7 @@
 
 ## 准备编译工具
 sudo apt update && sudo apt upgrade -y  
-sudo apt-get install git-lfs  
+sudo apt-get install git-lfs   
 sudo apt install build-essential -y
 
 ## 安装 cuda

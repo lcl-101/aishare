@@ -26,3 +26,4 @@ pytorch_lightning
 imagehash
 gradio
 ninja
+
