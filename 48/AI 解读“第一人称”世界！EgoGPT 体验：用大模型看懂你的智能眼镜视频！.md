@@ -5,7 +5,7 @@
 # 安装指南
 
 ## 准备 lfs 工具
-sudo apt update && sudo apt upgrade -y  
+sudo apt update && sudo apt upgrade -y   
 sudo apt-get install git-lfs  
 git lfs install  
 
