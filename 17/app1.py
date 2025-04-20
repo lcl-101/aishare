@@ -12,7 +12,7 @@ from preprocess.openpose.run_openpose import OpenPose
 
 import gradio as gr
 
-# 下载检查点
+# 下载检查点 
 #snapshot_download(repo_id="franciszzj/Leffa", local_dir="./ckpts")
 
 mask_predictor = AutoMasker(
