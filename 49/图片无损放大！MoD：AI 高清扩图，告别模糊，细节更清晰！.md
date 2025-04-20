@@ -6,7 +6,7 @@
 
 ## 克隆项目
 git clone https://github.com/DEVAIEXP/mod-control-tile-upscaler-sdxl.git  
-cd mod-control-tile-upscaler-sdxl  
+cd mod-control-tile-upscaler-sdxl   
 
 ## 创建运行环境
 conda create -n mod -y python=3.10  
