@@ -1,0 +1,47 @@
+# 基础 PyTorch 库
+torch
+torchvision
+torchaudio
+
+# HuggingFace 和加速训练工具
+transformers
+accelerate
+deepspeed
+peft
+
+# 图像与视频处理
+opencv-python
+decord
+pillow-heif
+timm
+av==12.0.0
+
+# 语音处理
+python_speech_features
+scipy
+wavfile
+
+# 数据集和训练监控
+datasets
+tensorboard
+
+# UI 和下载工具
+gradio
+yt-dlp
+gdown
+
+# GPU 和系统监控
+gpustat
+
+# NLP 和模型支持
+sentencepiece
+openai
+insightface
+onnxruntime-gpu
+qwen_vl_utils
+liger_kernel
+
+# 需要特殊安装命令的包（不能写入 requirements.txt）
+# 以下两个建议手动安装：
+# pip install flash-attn --no-build-isolation
+# pip install livecc-utils
