@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## Kimi-Audio：AI语音转写、理解、对话，功能强大！
-## https://youtu.be/wm25f6SLUPM
+## https://youtu.be/XdV9TNngy0M
 
 # 安装指南
 
