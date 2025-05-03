@@ -1,0 +1,13 @@
+--index-url https://download.pytorch.org/whl/cu124
+--extra-index-url https://pypi.org/simple
+
+librosa
+transformers@git+https://github.com/huggingface/transformers@v4.51.3-Qwen2.5-Omni-preview
+torch==2.6.0
+torchvision
+torchaudio
+accelerate
+pydantic==2.10.6
+gradio
+https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+
