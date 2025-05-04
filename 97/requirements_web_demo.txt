@@ -1,0 +1,18 @@
+# Core dependencies
+torch==2.6.0
+torchvision
+gradio==5.23.1
+gradio_client==1.8.0
+qwen-omni-utils==0.0.4
+librosa==0.11.0
+ffmpeg==1.4
+ffmpeg-python==0.2.0
+soundfile==0.13.1
+modelscope_studio==1.2.2
+git+https://github.com/huggingface/transformers@v4.51.3-Qwen2.5-Omni-preview
+accelerate
+av
+
+# Optional dependency
+# Uncomment the following line if you need flash-attn
+https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
