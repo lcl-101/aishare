@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI P图新范式：Step1X-Edit 用自然语言精准编辑图片，效果惊艳！
-## https://youtu.be/VrLcAPAFfHg
+## https://youtu.be/tnvfq2xb_x8
 
 # 安装指南
 
