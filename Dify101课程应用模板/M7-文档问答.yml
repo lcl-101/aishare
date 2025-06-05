@@ -1,0 +1,307 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: M7-文档问答
+  use_icon_as_answer_icon: true
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: yangyaofei/vllm:0.1.4@b9d34bbf01875405571bb829f9e275faeaf832b869a401f9757be48acfb509e8
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.16@77274df8fe2632cac66bfd153fcc75aa5e96abbe92b5c611b8984ad9f4cd4457
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 194da26d-6386-40b4-b2e4-34341a9b2b8d
+    name: knowledge
+    selector:
+    - conversation
+    - knowledge
+    value: ''
+    value_type: string
+  - description: ''
+    id: 2f7ed6b5-afdd-4369-aab1-c0f9347e7775
+    name: filecontext
+    selector:
+    - conversation
+    - filecontext
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions: []
+      allowed_file_types:
+      - document
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 1
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17449560046280-source-1744956173468-target
+      source: '17449560046280'
+      sourceHandle: source
+      target: '1744956173468'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: code
+      id: 1744957754205-source-1744957591250-target
+      source: '1744957754205'
+      sourceHandle: source
+      target: '1744957591250'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: knowledge-retrieval
+      id: 1744948088358-source-1744957754205-target
+      source: '1744948088358'
+      sourceHandle: source
+      target: '1744957754205'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1744957591250-source-17449560046280-target
+      source: '1744957591250'
+      sourceHandle: source
+      target: '17449560046280'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1744948088358'
+      position:
+        x: 30
+        y: 252.5
+      positionAbsolute:
+        x: 30
+        y: 252.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1744957591250'
+          - result
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 4
+        model:
+          completion_params: {}
+          mode: chat
+          name: /mnt/nvme0/Qwen2.5-72B-Instruct/
+          provider: yangyaofei/vllm/vllm
+        prompt_template:
+        - id: bed4b1b0-9511-45fc-be5b-216b0747f4ea
+          role: system
+          text: '你是一个AI助手，专门负责根据公司内部的规章制度文档库来回答员工的疑问。
+
+
+            你的回答【必须】严格基于检索系统从文档库中提供的相关文本片段。请【不要】使用任何外部知识、个人观点或其他未在提供文本中出现的信息。
+
+
+            当用户提出问题时：
+
+            1.  仔细分析问题，理解用户寻求的信息。
+
+            2.  依赖检索系统提供的上下文信息（通常是来自一个或多个文档的相关片段）。
+
+            3.  严格根据这些提供的文本片段来组织你的回答。
+
+            4.  如果可能，并且检索到的信息中包含了文档来源（例如文档标题或章节名），请在回答中指出来源，例如：“根据《[文档A的标题]》中的规定...”或“在《[文档B的标题]》的
+            [章节X] 中提到...”。
+
+            5.  如果问题的答案在提供的文本片段中没有明确说明，或者不能【直接】从这些片段中合理推断出来，你【必须】清楚地说明根据现有资料无法回答，例如：“根据目前检索到的文档信息，未能找到关于【具体主题】的明确说明。”或“我找到的资料中未包含您询问的【具体细节】。”
+            请不要猜测或做任何假设。
+
+            6.  你所有的回答都应使用简体中文。
+
+            7.  请注意，文档库中可能包含多种类型的制度文件，例如考勤制度、培训制度、报销政策等。请根据检索到的具体内容作答。
+
+
+            你的主要目标是成为一个可靠的公司内部政策问询助手，准确地传达文档库中的信息。
+
+
+            ## 知识库检索到的内容
+
+            {{#1744957591250.result#}}'
+        selected: true
+        title: LLM 处理回复
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17449560046280'
+      position:
+        x: 942
+        y: 252.5
+      positionAbsolute:
+        x: 942
+        y: 252.5
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#17449560046280.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 105
+      id: '1744956173468'
+      position:
+        x: 1246
+        y: 252.5
+      positionAbsolute:
+        x: 1246
+        y: 252.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(arg1: list) -> dict:\n    content_list = [item['content']\
+          \ for item in arg1]\n    joined_content = '\\n\\n'.join(content_list)\n\
+          \    return {\n        \"result\": joined_content,\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1744957754205'
+          - result
+          variable: arg1
+      height: 54
+      id: '1744957591250'
+      position:
+        x: 638
+        y: 252.5
+      positionAbsolute:
+        x: 638
+        y: 252.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - gV0dc+TJY+bhsttd0US8F46lrNA0B/r7CGKH9+Bx4dSwv8hoAw8gz8i02jE+9yqx
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: weighted_score
+          reranking_model:
+            model: gte-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: null
+          top_k: 10
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: /mnt/nvme0/bge-m3/
+              embedding_provider_name: langgenius/openai_api_compatible/openai_api_compatible
+              vector_weight: 1
+        query_variable_selector:
+        - '1744948088358'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 54
+      id: '1744957754205'
+      position:
+        x: 334
+        y: 252.5
+      positionAbsolute:
+        x: 334
+        y: 252.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -318.5999999999999
+      y: 85.5
+      zoom: 0.7

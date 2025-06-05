@@ -1,0 +1,138 @@
+app:
+  description: 依据指定的开源 AI 项目的 Github 地址，自动生成 Youtube 节目的开场白
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: agent-chat
+  name: M5-Agent-Github 文稿
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.6@7d66a960a68cafdcdf5589fdf5d01a995533f956853c69c54eddcf797006fa37
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/firecrawl:0.0.3@d668b3ad841e8bb27f735a8500568e44f9673156d1d4db72c304d0437bf80fd7
+kind: app
+model_config:
+  agent_mode:
+    enabled: true
+    max_iteration: 5
+    prompt: null
+    strategy: react
+    tools:
+    - enabled: true
+      isDeleted: false
+      notAuthor: false
+      provider_id: langgenius/firecrawl/firecrawl
+      provider_name: langgenius/firecrawl/firecrawl
+      provider_type: builtin
+      tool_label: 单页面抓取
+      tool_name: scrape
+      tool_parameters:
+        excludeTags: ''
+        formats: ''
+        headers: ''
+        includeTags: ''
+        onlyMainContent: ''
+        prompt: ''
+        schema: ''
+        systemPrompt: ''
+        timeout: ''
+        url: ''
+        waitFor: ''
+  annotation_reply:
+    enabled: false
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: false
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .WEBM
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: qwen2.5:32b
+    provider: langgenius/ollama/ollama
+  more_like_this:
+    enabled: false
+  opening_statement: Github 项目的介绍的开场白
+  pre_prompt: "```xml\n<instruction>\n    根据提供的 GitHub 项目首页 URL 地址，使用 firecrawl 工具抓取首页内容，并提取以下信息：\n\
+    \    - 项目名称\n    - 作者\n    - 项目基本描述\n    - Star 数量\n    - 最后更新的时间（如果没有明确的最后更新时间，查看代码中最近的日期）\n\
+    \    - 开发语言\n\n    步骤如下：\n    1. 使用 firecrawl 工具抓取 github 项目首页的内容。\n    2. 从抓取的内容中提取项目名称、作者、项目基本描述、Star\
+    \ 数量、最后更新的时间和开发语言。\n    3. 如果没有明确的最后更新时间，查找代码中的最近日期作为最后更新时间。\n    4. 对于获取的项目信息，再写一个\
+    \ Youtube 节目的开场白，主要是介绍这一个项目，开场白分为以下几个部分\n    开头：各位朋友大家好，欢迎来到 AI 技术分享频道，今天我们要为大家介绍和分享的开源项目，名称叫做\n\
+    \    中间：介绍项目的用途，特点\n    结尾： 所以接下来的话，我们就可以到演示的环境当中，完成项目的在线和本地体验。\n    5. 将提取的信息以文本形式返回，不要包含任何\
+    \ XML 标签。\n\n    示例输出：\n    项目名称: example-project\n    作者: example-author\n  \
+    \  项目基本描述: This is an example project.\n    Star 数量: 100\n    最后更新的时间: 2023-10-01\n\
+    \    开发语言: Python\n    Youtube 节目开场白：各位朋友大家好，欢迎来到 AI 技术分享频道，今天我们要为大家介绍和分享的开源项目，名称叫做\
+    \ Step1X-3D。 Step1X-3D 是一个面向高保真 3D 资产生成的开源框架，采用双阶段架构，结合 VAE-DiT 模型生成几何结构，并利用 SD-XL\
+    \ 技术打造跨视角一致的纹理合成。它构建了一个包含 200 万个高质量 3D 资产的数据集，并支持 2D 生成技术的无缝转移，使 LoRA 等方法可用于 3D\
+    \ 创作。在多个开源基准测试中，该项目表现卓越，接近商业闭源解决方案，为 3D 资产生成设立了新标准。 所以接下来的话，我们就可以到演示的环境当中，完成 Step1X-3D\
+    \ 的在线和本地体验。\n</instruction>\n<input>\n    <github_url>https://github.com/example-author/example-project</github_url>\n\
+    </input>\n<output>\n    项目名称: example-project\n    作者: example-author\n    项目基本描述:\
+    \ This is an example project.\n    Star 数量: 100\n    最后更新的时间: 2023-10-01\n   \
+    \ 开发语言: Python\n    Youtube 节目开场白：各位朋友大家好，欢迎来到 AI 技术分享频道，今天我们要为大家介绍和分享的开源项目，名称叫做\
+    \ Step1X-3D。 Step1X-3D 是一个面向高保真 3D 资产生成的开源框架，采用双阶段架构，结合 VAE-DiT 模型生成几何结构，并利用 SD-XL\
+    \ 技术打造跨视角一致的纹理合成。它构建了一个包含 200 万个高质量 3D 资产的数据集，并支持 2D 生成技术的无缝转移，使 LoRA 等方法可用于 3D\
+    \ 创作。在多个开源基准测试中，该项目表现卓越，接近商业闭源解决方案，为 3D 资产生成设立了新标准。 所以接下来的话，我们就可以到演示的环境当中，完成 Step1X-3D\
+    \ 的在线和本地体验。\n</output>\n<example>\n    输入:\n    https://github.com/expressjs/express\n\
+    \n    输出:\n    项目名称: express\n    作者: expressjs\n    项目基本描述: Fast, unopinionated,\
+    \ minimalist web framework for Node.js\n    Star 数量: 56789\n    最后更新的时间: 2023-09-25\n\
+    \    开发语言: JavaScript\n    Youtube 节目开场白：各位朋友大家好，欢迎来到 AI 技术分享频道，今天我们要为大家介绍和分享的开源项目，名称叫做\
+    \ Step1X-3D。 Step1X-3D 是一个面向高保真 3D 资产生成的开源框架，采用双阶段架构，结合 VAE-DiT 模型生成几何结构，并利用 SD-XL\
+    \ 技术打造跨视角一致的纹理合成。它构建了一个包含 200 万个高质量 3D 资产的数据集，并支持 2D 生成技术的无缝转移，使 LoRA 等方法可用于 3D\
+    \ 创作。在多个开源基准测试中，该项目表现卓越，接近商业闭源解决方案，为 3D 资产生成设立了新标准。 所以接下来的话，我们就可以到演示的环境当中，完成 Step1X-3D\
+    \ 的在线和本地体验。\n</example>\n```"
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions:
+  - https://github.com/Tencent-Hunyuan/HunyuanPortrait
+  - https://github.com/google-health/medgemma
+  - https://github.com/bytedance/deer-flow
+  suggested_questions_after_answer:
+    enabled: true
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form: []
+version: 0.3.0

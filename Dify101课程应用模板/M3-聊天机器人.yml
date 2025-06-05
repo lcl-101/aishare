@@ -1,0 +1,93 @@
+app:
+  description: "1.\t聊天机器人特点：简单搭建，自动生成提示词：\n你是一个聊天机器人，回答用户问题\n2.\t上下文能力\n提问1：请给我列一份早餐清单，三项就行了，简单一点\n\
+    提问2：第一种应该怎么做啊\n3.\t多模型测试\n4.\t管理扩展，对话开场白、问题建议，引用和归属、内容审查、标注回复\n5.\t不同的大模型，能力不一样，上传图片或是文档等\n\
+    6.\t日志与标注、监测等"
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: chat
+  name: M3-聊天机器人
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: yangyaofei/vllm:0.1.4@b9d34bbf01875405571bb829f9e275faeaf832b869a401f9757be48acfb509e8
+kind: app
+model_config:
+  agent_mode:
+    enabled: false
+    max_iteration: 5
+    strategy: react
+    tools: []
+  annotation_reply:
+    embedding_model:
+      embedding_model_name: /mnt/nvme0/bge-m3/
+      embedding_provider_name: langgenius/openai_api_compatible/openai_api_compatible
+    enabled: true
+    id: f6041ce5-343f-426d-b7fe-486deef3261c
+    score_threshold: 0.9
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: false
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .WEBM
+    allowed_file_types:
+    - image
+    - video
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: true
+    image:
+      detail: high
+      enabled: true
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: /mnt/nvme0/Qwen2-Audio-7B-Instruct/
+    provider: yangyaofei/vllm/vllm
+  more_like_this:
+    enabled: false
+  opening_statement: 你好，我是千问模型机器人
+  pre_prompt: 你是一个聊天机器人，回答用户问题
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: true
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form: []
+version: 0.3.0

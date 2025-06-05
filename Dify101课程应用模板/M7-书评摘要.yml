@@ -1,0 +1,293 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: M7-书评摘要
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.6@7d66a960a68cafdcdf5589fdf5d01a995533f956853c69c54eddcf797006fa37
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.16@77274df8fe2632cac66bfd153fcc75aa5e96abbe92b5c611b8984ad9f4cd4457
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 194da26d-6386-40b4-b2e4-34341a9b2b8d
+    name: knowledge
+    selector:
+    - conversation
+    - knowledge
+    value: ''
+    value_type: string
+  - description: ''
+    id: 2f7ed6b5-afdd-4369-aab1-c0f9347e7775
+    name: filecontext
+    selector:
+    - conversation
+    - filecontext
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions: []
+      allowed_file_types:
+      - document
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 1
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17449560046280-source-1744956173468-target
+      source: '17449560046280'
+      sourceHandle: source
+      target: '1744956173468'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: code
+      id: 1744957754205-source-1744957591250-target
+      source: '1744957754205'
+      sourceHandle: source
+      target: '1744957591250'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: knowledge-retrieval
+      id: 1744948088358-source-1744957754205-target
+      source: '1744948088358'
+      sourceHandle: source
+      target: '1744957754205'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1744957591250-source-17449560046280-target
+      source: '1744957591250'
+      sourceHandle: source
+      target: '17449560046280'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1744948088358'
+      position:
+        x: 30
+        y: 252.5
+      positionAbsolute:
+        x: 30
+        y: 252.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1744957591250'
+          - result
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 4
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen2.5:32b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: bed4b1b0-9511-45fc-be5b-216b0747f4ea
+          role: system
+          text: "你是一位专业的书籍内容提炼师，擅长将复杂的书籍内容转化为易于理解和吸收的“关键见解点”(Key Insights / Blinks)。你的任务是基于用户上传的电子书内容，生成一份类似\
+            \ Blinkist 风格的书籍核心内容摘要。\n\n输出的核心结构应该是【一系列独立的“关键见解点”】，每个见解点包含：\n\n1.  **一个清晰、引人注目的【小标题】(Catchy\
+            \ Title for the Blink):** 概括这个见解点的核心。\n2.  **对该见解点的【详细阐述】(Detailed Explanation):**\n\
+            \    *   清晰解释这个核心思想或论点是什么。\n    *   【至关重要】：**使用书中的【具体例子、故事、数据、引文或场景】来生动地解释和支撑这个见解点。**\
+            \ 让读者能够通过实例理解抽象概念。\n    *   如果适用，可以简要说明这个见解点对读者可能有的实际意义或启发。\n\n**整体要求：**\n\
+            \n*   **提炼精华:** 专注于书籍中最核心、最有价值的思想和论点，避免不必要的细节或旁支。目标是让读者在短时间内抓住书的精髓。\n\
+            *   **数量适中:** 通常一本书可以提炼出 3-7 个左右的关键见解点，具体数量可以根据书籍内容的丰富程度而定。\n*   **独立完整:**\
+            \ 每个“关键见解点”应该相对独立，读者即使只看一个点也能有所收获。\n*   **语言精炼易懂:** 使用清晰、简洁、易于理解的语言，避免学术化或过于复杂的表达。\n\
+            *   **忠于原文:** 所有提炼的见解和引用的例子【必须】来源于所提供的书籍内容。严禁添加外部信息或个人解读。\n*   **结构清晰:**\
+            \ 最终输出应以列表或分点的形式呈现这些“关键见解点”，每个点包含标题和阐述。\n*   **开头可选择性地加入一个【书籍核心概要】(Overall\
+            \ Book Summary - 1-2句话):** 在罗列关键见解点之前，可以用一两句话概括这本书是关于什么的，以及它试图解决的主要问题或传达的核心信息。\n\
+            \n**示例输出结构 (非内容，仅为结构示意)：**\n\n---\n**《[书籍标题]》核心概要：**\n这本书主要探讨了[核心主题]，并为读者提供了[主要解决方案/视角]。\n\
+            \n**关键见解点 1：[引人注目的小标题]**\n[详细阐述，结合书中的具体例子、故事或引文来说明...]\n\n**关键见解点 2：[引人注目的小标题]**\n\
+            [详细阐述，结合书中的具体例子、故事或引文来说明...]\n\n**关键见解点 3：[引人注目的小标题]**\n[详细阐述，结合书中的具体例子、故事或引文来说明...]\n\
+            ... (更多关键见解点)\n---\n\n请充分利用你对文本的理解能力，从提供的书籍内容中精准提炼核心见解，并用生动的例子加以阐释，生成一份高质量的\
+            \ Blinkist 式书籍摘要。\n\n\n## 知识库检索到的内容\n{{#1744957591250.result#}}"
+        selected: false
+        title: LLM 处理
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17449560046280'
+      position:
+        x: 942
+        y: 252.5
+      positionAbsolute:
+        x: 942
+        y: 252.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#17449560046280.text#}}'
+        desc: ''
+        selected: false
+        title: 生成回复
+        type: answer
+        variables: []
+      height: 105
+      id: '1744956173468'
+      position:
+        x: 1246
+        y: 252.5
+      positionAbsolute:
+        x: 1246
+        y: 252.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(arg1: list) -> dict:\n    content_list = [item['content']\
+          \ for item in arg1]\n    joined_content = '\\n\\n'.join(content_list)\n\
+          \    return {\n        \"result\": joined_content,\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 合并分块内容
+        type: code
+        variables:
+        - value_selector:
+          - '1744957754205'
+          - result
+          variable: arg1
+      height: 54
+      id: '1744957591250'
+      position:
+        x: 638
+        y: 252.5
+      positionAbsolute:
+        x: 638
+        y: 252.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - vvvJsnOhRrzwGp0VOvYpNScWg5HNJB7GFvvuJUGx+CIMuZVGhvrCybaCZsoMho35
+        - IZTN94sYmBBbYxmhHD0vMATCAWIr0e5UUxRLdciI2I4dQduCSgsYKOyFWIsB0+aS
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: weighted_score
+          reranking_model:
+            model: gte-rerank-v2
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.5
+          top_k: 10
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: /mnt/nvme0/bge-m3/
+              embedding_provider_name: langgenius/openai_api_compatible/openai_api_compatible
+              vector_weight: 1
+        query_variable_selector:
+        - '1744948088358'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 92
+      id: '1744957754205'
+      position:
+        x: 334
+        y: 252.5
+      positionAbsolute:
+        x: 334
+        y: 252.5
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -506.5999999999999
+      y: 83.5
+      zoom: 0.7

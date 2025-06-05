@@ -1,0 +1,183 @@
+app:
+  description: 搜索最近上映的电影信息
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: agent-chat
+  name: M5-Agent-电影爱好者
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: yangyaofei/vllm:0.1.4@b9d34bbf01875405571bb829f9e275faeaf832b869a401f9757be48acfb509e8
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tavily:0.0.5@caf7214ca1a237845e991615fd12e04c8db8b703d59773538fe243f3de4044e9
+kind: app
+model_config:
+  agent_mode:
+    enabled: true
+    max_iteration: 5
+    prompt: null
+    strategy: react
+    tools:
+    - enabled: true
+      isDeleted: false
+      notAuthor: false
+      provider_id: langgenius/tavily/tavily
+      provider_name: langgenius/tavily/tavily
+      provider_type: builtin
+      tool_label: Tavily Search
+      tool_name: tavily_search
+      tool_parameters:
+        days: ''
+        exclude_domains: ''
+        include_answer: ''
+        include_domains: ''
+        include_image_descriptions: ''
+        include_images: ''
+        include_raw_content: ''
+        max_results: ''
+        query: ''
+        search_depth: ''
+        time_range: ''
+        topic: ''
+  annotation_reply:
+    enabled: false
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: false
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .WEBM
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: /mnt/nvme0/Qwen2.5-72B-Instruct/
+    provider: yangyaofei/vllm/vllm
+  more_like_this:
+    enabled: false
+  opening_statement: 搜索最近上映的美国电影信息
+  pre_prompt: '```xml
+
+    <instruction>
+
+    请使用 tavily search 工具，根据以下输入变量，搜索最近七天内上映的美国电影信息。具体步骤如下：
+
+    1. 使用搜索工具，查询最近七天内上映的美国电影。
+
+    2. 对于每部电影，收集以下信息：电影名字，主演，故事概要，票房表现，上映时间。
+
+    3.使用搜索工具，在 imdb 网站搜索观众影评，获取影评。
+
+    3. 将收集到的信息整理成清晰的列表形式，确保每个部分都包含上述提到的所有信息。
+
+    4. 输出结果时，请不要包含任何 XML 标签。
+
+    </instruction>
+
+    <input>
+
+    <search_tool>tavily search</search_tool>
+
+    <movie_name>电影名称</movie_name>
+
+    <main_actors>主演名单</main_actors>
+
+    <story_synopsis>故事简介</story_synopsis>
+
+    <box_office_performance>票房成绩</box_office_performance>
+
+    <audience_reviews>观众评论</audience_reviews>
+
+    </input>
+
+    <example>
+
+    例如，如果搜索结果显示有两部电影符合要求，输出应如下所示：
+
+
+    电影名称: 《无间道》
+
+    上映时间：2001年1月3日
+
+    主演: 刘德华, 梁朝伟
+
+    故事简介: 讲述了两个身份错位的警察与黑帮卧底之间的斗争。
+
+    票房成绩: 5000万人民币
+
+    观众评论: "剧情紧凑，演员演技出色，值得一看。"
+
+
+    电影名称: 《泰坦尼克号》
+
+    上映时间：1997年3月3日
+
+    主演: 莱昂纳多·迪卡普里奥, 凯特·温斯莱特
+
+    故事简介: 描述了泰坦尼克号首航沉没的历史事件中的爱情故事。
+
+    票房成绩: 2亿人民币
+
+    观众评论: "经典的爱情故事，视觉效果震撼。"
+
+    </example>
+
+    <output>
+
+    </output>
+
+    ```'
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions:
+  - 搜索最近七天内上映的美国电影信息
+  - 搜索最近十五天内上映的美国电影信息
+  - 搜索最近一个月内上映的美国电影信息
+  suggested_questions_after_answer:
+    enabled: true
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form: []
+version: 0.3.0

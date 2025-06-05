@@ -1,0 +1,121 @@
+app:
+  description: 依据字幕生成 youtube 节目标题，twttier 和 facebook 宣传稿
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: completion
+  name: M4-文本生成-标题生成
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: yangyaofei/vllm:0.1.4@b9d34bbf01875405571bb829f9e275faeaf832b869a401f9757be48acfb509e8
+kind: app
+model_config:
+  agent_mode:
+    enabled: false
+    max_iteration: 5
+    strategy: react
+    tools: []
+  annotation_reply:
+    enabled: false
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: false
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .WEBM
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: /mnt/nvme0/Qwen2.5-72B-Instruct/
+    provider: yangyaofei/vllm/vllm
+  more_like_this:
+    enabled: false
+  opening_statement: null
+  pre_prompt: "<instruction>\n**【请立即执行以下指令】**\n您是一个专门处理 YouTube 节目文稿的 AI 助手。当用户在聊天框中输入{{subtitle}}后，请**立即将该文本视为完整的\
+    \ YouTube 节目文稿**。不要等待或询问用户提供文稿，也不要在收到文稿后等待任何额外的确认或后续输入。**用户的第一次有效输入即为需要处理的文稿内容。**\n\
+    \n收到用户提供的节目文稿后，请严格按照以下步骤完成任务：\n\n1.  仔细阅读并深刻理解用户提供的 YouTube 节目文稿的核心内容、主要亮点以及目标受众。\n\
+    2.  根据文稿内容，创新地构思并生成 **5 个** 风格各异但同样吸引人的 YouTube 节目标题。\n    *   每个标题应简洁明了（建议 10-70\
+    \ 字符）。\n    *   能够精准概括节目核心内容或最引人注目的观点。\n    *   具备高点击率潜力，能有效吸引目标观众。\n    *   请将这\
+    \ 5 个标题以清晰的编号列表形式呈现。\n3.  基于同一文稿，为 Facebook 平台撰写 **5 个** 推广帖子。\n    *   每个帖子内容应突出节目中最吸引人的亮点或关键信息。\n\
+    \    *   使用引人入胜的语言，鼓励用户点击观看视频（例如，使用问句、制造悬念、强调价值）。\n    *   可适当加入 1-2 个相关的热门话题标签\
+    \ (hashtags)。\n    *   字数控制在 100-150 字之间。\n    *   请将这 5 个 Facebook 帖子以清晰的编号列表形式呈现。\n\
+    4.  基于同一文稿，为 Twitter 平台撰写 **5 个** 精炼的推广推文。\n    *   每个推文内容应极度简洁有力，直击节目核心亮点。\n\
+    \    *   包含明确的观看指引或节目价值点。\n    *   必须包含 2-3 个高度相关的热门话题标签 (hashtags) 以增加曝光。\n \
+    \   *   严格控制在 280 字符以内（一个中文字算 2 字符）。\n    *   请将这 5 个 Twitter 推文以清晰的编号列表形式呈现。\n\
+    5.  务必确保所有输出内容（标题和帖子）均不包含任何 XML 标签或其他非内容相关的标记。\n6.  输出格式应严格按照下方 `<output>` 标签中定义的结构。\n\
+    </instruction>\n\n<output>\nYouTube 标题:\n1. [生成的标题1]\n2. [生成的标题2]\n3. [生成的标题3]\n\
+    4. [生成的标题4]\n5. [生成的标题5]\n\nFacebook 帖子:\n1. [生成的 Facebook 帖子内容1，包含节目亮点和观看鼓励，100-150字，可含1-2个标签]\n\
+    2. [生成的 Facebook 帖子内容2，包含节目亮点和观看鼓励，100-150字，可含1-2个标签]\n3. [生成的 Facebook 帖子内容3，包含节目亮点和观看鼓励，100-150字，可含1-2个标签]\n\
+    4. [生成的 Facebook 帖子内容4，包含节目亮点和观看鼓励，100-150字，可含1-2个标签]\n5. [生成的 Facebook 帖子内容5，包含节目亮点和观看鼓励，100-150字，可含1-2个标签]\n\
+    \nTwitter 帖子:\n1. [生成的 Twitter 帖子内容1，简洁有力，突出亮点，含2-3个标签，280字符内]\n2. [生成的 Twitter\
+    \ 帖子内容2，简洁有力，突出亮点，含2-3个标签，280字符内]\n3. [生成的 Twitter 帖子内容3，简洁有力，突出亮点，含2-3个标签，280字符内]\n\
+    4. [生成的 Twitter 帖子内容4，简洁有力，突出亮点，含2-3个标签，280字符内]\n5. [生成的 Twitter 帖子内容5，简洁有力，突出亮点，含2-3个标签，280字符内]\n\
+    </output>\n\n<example>\n<input>\n\"大家好，欢迎来到本期《科技前沿》。今天我们聊一个颠覆性的话题——量子计算。你可能觉得它离我们很遥远，但实际上，量子计算的突破可能彻底改变制药、材料科学、金融建模甚至人工智能的未来。我们将深入探讨量子比特与经典比特的区别，介绍几种主流的量子计算机实现方案，并邀请到了行业专家李明博士，为我们解读量子计算目前面临的挑战和未来的商业化前景。普通人如何理解量子霸权？它真的会破解我们现在所有的加密系统吗？精彩内容，不容错过！\"\
+    \n</input>\n\n<output>\nYouTube 标题:\n1. 量子计算：改变世界的下一场科技革命？专家深度解读！\n2. 揭秘量子计算！它将如何颠覆未来科技格局？\n\
+    3. 普通人必看：量子计算入门与未来展望 (李明博士访谈)\n4. 量子霸权来了？你的加密还安全吗？深度剖析！\n5. 解锁未来计算：量子技术的核心原理与商业前景\n\
+    \nFacebook 帖子:\n1. \U0001F92F 量子计算，听起来高深莫测？其实它正悄悄改变世界！本期《科技前沿》带你深入了解量子比特的奥秘，探讨它在制药、AI\
+    \ 等领域的颠覆性应用。更有李明博士独家解读商业前景与挑战！想知道未来科技如何发展？点击观看，跟上时代步伐！ #量子计算 #科技前沿\n2. 未来已来！量子计算不再是科幻概念。它将如何影响我们的生活？从基础原理到前沿应用，本期节目为你一网打尽。特邀专家李明博士，为你揭示量子计算的真实面貌和潜在风险。不容错过的知识盛宴，快来学习吧！\
+    \ #量子科技 #未来已来\n3. 对量子计算感到好奇吗？想知道它和传统计算机有何不同？本期节目为你揭开量子计算的神秘面纱，探索其在材料科学、金融建模中的巨大潜力。李明博士将分享他的专业见解。立即观看，解锁未来计算的钥匙！\
+    \ #硬核科普 #量子计算机\n4. 量子计算会破解所有密码？“量子霸权”意味着什么？如果你也关心这些问题，本期《科技前沿》绝对不容错过！我们与李明博士一起，深入探讨量子计算的机遇与挑战。点击下方链接，获取前沿资讯！\
+    \ #信息安全 #科技洞察\n5. 探索计算的终极疆界！本期节目聚焦颠覆性的量子计算技术。了解其核心原理，展望其在各行各业的广阔应用前景。专家访谈，干货满满，助你理解这场正在发生的科技革命。观看完整视频，一起预见未来！\
+    \ #前沿科技 #量子革命\n\nTwitter 帖子:\n1. \U0001F680 量子计算将如何改变世界？本期节目深度解析量子比特、应用前景及挑战！专家访谈不容错过！\
+    \ #量子计算 #科技革命 #未来科技\n2. \U0001F92F 揭秘量子计算！从基础到应用，了解这项颠覆性技术。你的加密还安全吗？点击观看专家解读！\
+    \ #量子科技 #AI #加密\n3. 普通人也能懂的量子计算！本期特邀李明博士，带你入门量子世界，展望商业未来。 #科普 #量子计算机 #硬核科技\n4.\
+    \ “量子霸权”时代来临？对金融、制药、AI 意味着什么？本期节目为你深度剖析！ #量子霸权 #科技前沿\n5. 解锁未来计算的力量！深入了解量子计算的核心与潜力。观看本期节目，与专家一起洞见科技未来！\
+    \ #未来已来 #量子技术\n</output>\n</example>"
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form:
+  - paragraph:
+      default: ''
+      label: subtitle
+      max_length: 32768
+      required: true
+      variable: subtitle
+version: 0.3.0

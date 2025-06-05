@@ -1,0 +1,633 @@
+app:
+  description: 一站式的 YouTube 节目助手
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: M6-YouTube 节目助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.6@7d66a960a68cafdcdf5589fdf5d01a995533f956853c69c54eddcf797006fa37
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: 您好！我是您的 YouTube 节目助手。请输入您项目的 GitHub URL 开始，我将帮助您生成 YouTube
+      节目的开场白文稿，而当你制作完成节目之后，我还可以帮你依据字幕生成 Youtube 节目标题和帖子，以及 Facebook 和 Twttier 宣传稿件。
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+    - https://github.com/Tencent-Hunyuan/HunyuanPortrait
+    - https://github.com/google-health/medgemma
+    - https://github.com/bytedance/deer-flow
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1748847577727-source-1748848198964-target
+      selected: false
+      source: '1748847577727'
+      sourceHandle: source
+      target: '1748848198964'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1748846492900-source-1748851955333-target
+      selected: false
+      source: '1748846492900'
+      sourceHandle: source
+      target: '1748851955333'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1748851955333-source-1748852658301-target
+      selected: false
+      source: '1748851955333'
+      sourceHandle: source
+      target: '1748852658301'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1748852658301-true-1748847577727-target
+      selected: false
+      source: '1748852658301'
+      sourceHandle: 'true'
+      target: '1748847577727'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1748852658301-false-1748847706783-target
+      selected: false
+      source: '1748852658301'
+      sourceHandle: 'false'
+      target: '1748847706783'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1748852658301-399b6a8b-332c-443d-99da-0f0108e86625-1748847739375-target
+      selected: false
+      source: '1748852658301'
+      sourceHandle: 399b6a8b-332c-443d-99da-0f0108e86625
+      target: '1748847739375'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1748847739375-source-17488539483220-target
+      source: '1748847739375'
+      sourceHandle: source
+      target: '17488539483220'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1748846492900'
+      position:
+        x: 30
+        y: 287
+      positionAbsolute:
+        x: 30
+        y: 287
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen2.5:32b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: a179dea9-a48e-40c8-8b9e-c73706322834
+          role: system
+          text: "```xml\n<instruction>\n    根据提供的 GitHub 项目首页 URL 地址{{#sys.query#}}，使用\
+            \ firecrawl 工具抓取首页内容，并提取以下信息：\n    - 项目名称\n    - 作者\n    - 项目基本描述\n  \
+            \  - Star 数量\n    - 最后更新的时间（如果没有明确的最后更新时间，查看代码中最近的日期）\n    - 开发语言\n\n\
+            \    步骤如下：\n    1. 使用 firecrawl 工具抓取 github 项目首页的内容。\n    2. 从抓取的内容中提取项目名称、作者、项目基本描述、Star\
+            \ 数量、最后更新的时间和开发语言。\n    3. 如果没有明确的最后更新时间，查找代码中的最近日期作为最后更新时间。\n    4. 对于获取的项目信息，再写一个\
+            \ Youtube 节目的开场白，主要是介绍这一个项目，开场白分为以下几个部分\n    开头：各位朋友大家好，欢迎来到 AI 技术分享频道，今天我们要为大家介绍和分享的开源项目，名称叫做\n\
+            \    中间：介绍项目的用途，特点\n    结尾： 所以接下来的话，我们就可以到演示的环境当中，完成项目的在线和本地体验。\n    5.\
+            \ 将提取的信息以文本形式返回，不要包含任何 XML 标签。\n\n    示例输出：\n    项目名称: example-project\n\
+            \    作者: example-author\n    项目基本描述: This is an example project.\n   \
+            \ Star 数量: 100\n    最后更新的时间: 2023-10-01\n    开发语言: Python\n    Youtube\
+            \ 节目开场白：各位朋友大家好，欢迎来到 AI 技术分享频道，今天我们要为大家介绍和分享的开源项目，名称叫做 Step1X-3D。 Step1X-3D\
+            \ 是一个面向高保真 3D 资产生成的开源框架，采用双阶段架构，结合 VAE-DiT 模型生成几何结构，并利用 SD-XL 技术打造跨视角一致的纹理合成。它构建了一个包含\
+            \ 200 万个高质量 3D 资产的数据集，并支持 2D 生成技术的无缝转移，使 LoRA 等方法可用于 3D 创作。在多个开源基准测试中，该项目表现卓越，接近商业闭源解决方案，为\
+            \ 3D 资产生成设立了新标准。 所以接下来的话，我们就可以到演示的环境当中，完成 Step1X-3D 的在线和本地体验。\n</instruction>\n\
+            <input>\n    <github_url>https://github.com/example-author/example-project</github_url>\n\
+            </input>\n<output>\n    项目名称: example-project\n    作者: example-author\n\
+            \    项目基本描述: This is an example project.\n    Star 数量: 100\n    最后更新的时间:\
+            \ 2023-10-01\n    开发语言: Python\n    Youtube 节目开场白：各位朋友大家好，欢迎来到 AI 技术分享频道，今天我们要为大家介绍和分享的开源项目，名称叫做\
+            \ Step1X-3D。 Step1X-3D 是一个面向高保真 3D 资产生成的开源框架，采用双阶段架构，结合 VAE-DiT 模型生成几何结构，并利用\
+            \ SD-XL 技术打造跨视角一致的纹理合成。它构建了一个包含 200 万个高质量 3D 资产的数据集，并支持 2D 生成技术的无缝转移，使\
+            \ LoRA 等方法可用于 3D 创作。在多个开源基准测试中，该项目表现卓越，接近商业闭源解决方案，为 3D 资产生成设立了新标准。 所以接下来的话，我们就可以到演示的环境当中，完成\
+            \ Step1X-3D 的在线和本地体验。\n</output>\n<example>\n    输入:\n    https://github.com/expressjs/express\n\
+            \n    输出:\n    项目名称: express\n    作者: expressjs\n    项目基本描述: Fast, unopinionated,\
+            \ minimalist web framework for Node.js\n    Star 数量: 56789\n    最后更新的时间:\
+            \ 2023-09-25\n    开发语言: JavaScript\n    Youtube 节目开场白：各位朋友大家好，欢迎来到 AI\
+            \ 技术分享频道，今天我们要为大家介绍和分享的开源项目，名称叫做 Step1X-3D。 Step1X-3D 是一个面向高保真 3D 资产生成的开源框架，采用双阶段架构，结合\
+            \ VAE-DiT 模型生成几何结构，并利用 SD-XL 技术打造跨视角一致的纹理合成。它构建了一个包含 200 万个高质量 3D 资产的数据集，并支持\
+            \ 2D 生成技术的无缝转移，使 LoRA 等方法可用于 3D 创作。在多个开源基准测试中，该项目表现卓越，接近商业闭源解决方案，为 3D\
+            \ 资产生成设立了新标准。 所以接下来的话，我们就可以到演示的环境当中，完成 Step1X-3D 的在线和本地体验。\n</example>\n\
+            ```"
+        selected: false
+        title: 生成开场白
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1748847577727'
+      position:
+        x: 942
+        y: 287
+      positionAbsolute:
+        x: 942
+        y: 287
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 您输入的内容不对哦，请再输入一下啦
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 102
+      id: '1748847706783'
+      position:
+        x: 942
+        y: 417
+      positionAbsolute:
+        x: 942
+        y: 417
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen2.5:32b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 6409d69f-5d0c-40bf-9b40-85a706ee4664
+          role: system
+          text: '<instruction>
+
+            【请立即执行以下指令】
+
+            您是一个全能的 YouTube 节目内容优化与社交媒体推广助手。当用户在聊天框中输入 {{#sys.query#}} 后，请立即将该文本（包含时间戳和字幕内容）视为完整的
+            YouTube 节目文稿。不要等待或询问用户提供文稿，也不要在收到文稿后等待任何额外的确认或后续输入。用户的第一次有效输入即为需要处理的文稿内容。
+
+            收到用户提供的节目文稿后，请严格按照以下步骤完成任务：
+
+            深度解析文稿：
+
+            仔细阅读并深刻理解用户提供的 YouTube 节目文稿的核心主题、关键信息点、独特亮点、潜在争议点或最引人入胜的片段。
+
+            识别关键结构节点：根据字幕内容和时间戳，留意视频中主要的章节转换点（例如：开场介绍、不同功能的演示、步骤说明、总结等），这将用于生成视频时间分割。
+
+            分析文稿内容可能吸引的目标受众画像（例如：初学者、专业人士、对特定话题好奇的广泛人群等）以及他们的潜在痛点或兴趣点，这将用于优化所有类型的推广内容。
+
+            生成 YouTube 平台内容：
+
+            a. 创新构思 YouTube 节目标题：
+
+            根据对文稿的理解，创新地构思并生成 5 个 风格各异但同样极具吸引力的 YouTube 节目标题。
+
+            标题要求：简洁有力（15-60字符，最长70字符），精准概括，高点击率潜力（运用疑问悬念、价值承诺、关键词驱动、情绪共鸣等策略）。
+
+            【重要格式要求】请将这 5 个标题以清晰的编号列表形式呈现，每个标题必须占据独立的一行，请勿将多个标题合并在同一行或用逗号/空格分隔后放在一行。
+
+            b. (可选但推荐) 生成 YouTube 帖子/视频描述：
+
+            选择一个最具潜力的标题或综合文稿内容。
+
+            撰写一段简洁（约 150-300 字符）且引人入胜的 YouTube 社区帖子草稿或视频描述的开头部分。
+
+            帖子/描述内容应包含：简要核心看点、CTA、可选互动问题、及 2-3 个 #话题标签。
+
+            c. 生成 YouTube 视频时间分割 (章节)：
+
+            基于第 1 步对文稿结构节点的识别，以及字幕内容和对应的时间戳。
+
+            提取出视频中 4-8 个关键的逻辑分段点作为章节。
+
+            对于每个分段点：确定起始时间（格式 HH:MM:SS）并撰写简洁明了的章节描述。
+
+            将生成的时间分割以清晰的列表形式呈现，每行一个章节。
+
+            生成社交媒体推广内容：
+
+            a. 为 Facebook 平台撰写推广帖子：
+
+            基于同一文稿，撰写 5 个 推广帖子。
+
+            帖子要求：突出节目最吸引人的亮点或关键信息，使用引人入胜的语言鼓励点击观看视频，可适当加入 1-2 个相关热门话题标签，字数控制在 100-150
+            字之间。
+
+            请将这 5 个 Facebook 帖子以清晰的编号列表形式呈现。
+
+            b. 为 Twitter 平台撰写推广推文：
+
+            基于同一文稿，撰写 5 个 精炼的推广推文。
+
+            推文要求：极度简洁有力直击节目核心亮点，包含明确观看指引或节目价值点，必须包含 2-3 个高度相关热门话题标签，严格控制在 280 字符以内（一个中文字算
+            2 字符）。
+
+            请将这 5 个 Twitter 推文以清晰的编号列表形式呈现。
+
+            格式与规范：
+
+            务必确保所有输出内容均不包含任何 XML 标签或其他非内容相关的标记。
+
+            输出格式应严格按照下方 <output> 标签中定义的结构，特别是 YouTube 标题部分，每个标题必须单独一行。
+
+            </instruction>
+
+            <output>
+
+            YouTube 标题:
+
+            1. [生成的标题1]
+
+            2. [生成的标题2]
+
+            3. [生成的标题3]
+
+            4. [生成的标题4]
+
+            5. [生成的标题5]
+
+            YouTube 帖子/描述:
+
+            [此处为生成的帖子/描述内容，包含CTA和可选问题]
+
+            #标签1 #标签2 #标签3
+
+            YouTube 视频时间分割:
+
+            HH:MM:SS [章节描述1]
+
+            HH:MM:SS [章节描述2]
+
+            HH:MM:SS [章节描述3]
+
+            HH:MM:SS [章节描述4]
+
+            ...
+
+            Facebook 帖子:
+
+            [生成的 Facebook 帖子内容1]
+
+            [生成的 Facebook 帖子内容2]
+
+            [生成的 Facebook 帖子内容3]
+
+            [生成的 Facebook 帖子内容4]
+
+            [生成的 Facebook 帖子内容5]
+
+            Twitter 帖子:
+
+            [生成的 Twitter 帖子内容1]
+
+            [生成的 Twitter 帖子内容2]
+
+            [生成的 Twitter 帖子内容3]
+
+            [生成的 Twitter 帖子内容4]
+
+            [生成的 Twitter 帖子内容5]
+
+            </output>
+
+            <example>
+
+            <input>
+
+            1
+
+            00:00:05,638 --> 00:00:07,207
+
+            各位朋友大家好
+
+            ... (此处为完整的字幕内容) ...
+
+            </input>
+
+            <output>
+
+            YouTube 标题:
+
+            1. 🚀 字节跳动王炸开源！Dear-Flow：AI帮你搞定从数据到报告全流程！
+
+            2. 🤯 解放双手！字节Dear-Flow从0部署到实战：AI自动化研究全攻略！
+
+            3. 💡 字节跳动AI研究神器Dear-Flow深度揭秘：媲美商业方案的开源力量！
+
+            4. 🛠️ 小白也能上手！字节Dear-Flow保姆级部署：AI自动生成研究报告！
+
+            5. 🤔 研究范式大变革？字节跳动Dear-Flow：AI智能体如何自动完成深度分析？
+
+            YouTube 帖子/描述:
+
+            还在为繁琐的研究流程头疼？字节跳动开源的Dear-Flow框架来了！本期视频带你从零开始部署和体验这款AI研究神器，看它如何自动化完成从数据采集到报告生成的全过程。你最期待AI帮你完成研究中的哪个环节？评论区告诉我！
+
+            #DearFlow #字节跳动 #AI研究 #开源项目 #自动化工具
+
+            YouTube 视频时间分割:
+
+            00:00:05 项目介绍 (Dear-Flow是什么？字节跳动开源)
+
+            00:01:03 在线演示与功能概览 (官方网站示例重放)
+
+            00:02:25 本地部署准备 (环境与必备组件安装指南)
+
+            00:07:38 配置文件详解 (搜索引擎与大模型API Key设置)
+
+            00:12:29 WebUI启动与本地体验 (输入问题、深度分析与报告生成)
+
+            00:16:06 进阶讨论 (本地大模型支持与项目意义)
+
+            00:18:02 总结与结语
+
+            Facebook 帖子:
+
+            🔥 字节跳动又出大招！开源AI研究框架Dear-Flow，从数据采集到报告生成全自动化！想知道它如何媲美商业工具吗？本期视频带你深度体验与部署，告别繁琐研究流程！
+            #DearFlow #AI自动化
+
+            🤯 研究报告写到头秃？试试字节跳动的Dear-Flow！这个开源神器集成了语言模型、网页搜索和代码执行，让AI为你完成深度分析。小白也能轻松上手，快来看我们的实战演示吧！
+            #AI研究 #字节跳动
+
+            💡 想提升研究效率？字节跳动开源的Dear-Flow框架了解一下！模块化多智能体架构，分工明确，高效完成信息收集与报告生成。本期视频手把手教你本地部署，快来解锁AI研究新姿势！
+            #开源项目 #TechShare
+
+            还在羡慕商业AI研究工具？免费的Dear-Flow来了！字节跳动出品，性能卓越，支持本地大模型。我们为你准备了详尽的在线与本地体验教程，看看AI如何进行深度思考和分析！
+            #AI工具 #深度学习
+
+            探索AI研究的无限可能！Dear-Flow框架由字节跳动开源，将先进语言模型与多种实用工具结合，实现全流程自动化。本期视频带你深入了解其架构与应用，更有部署指南助你快速上手！
+            #人工智能 #自动化研究
+
+            Twitter 帖子:
+
+            🚀 字节跳动开源AI研究框架Dear-Flow！自动化数据采集到报告，媲美商业工具！深度体验与部署教程已上线！ #DearFlow #AI
+            #OpenSource
+
+            🤯 解放研究生产力！字节Dear-Flow实测，AI智能体自动完成深度分析与报告生成。点击观看保姆级部署指南！ #AIResearch #Automation
+            #Tech
+
+            💡 告别手动搜文献！字节跳动Dear-Flow，集成LLM、搜索、代码执行，一站式AI研究解决方案。立即体验！ #AI研究工具 #效率提升
+
+            🔥 免费还好用的AI研究神器？字节跳动Dear-Flow来了！支持本地大模型，性能卓越。完整评测与教程戳这里！ #AI框架 #TechReview
+
+            ✨ AI研究新范式！字节Dear-Flow，模块化多智能体架构，助你高效完成深度研究。了解更多并开始部署！ #FutureTech #AIAutomation
+
+            </output>
+
+            </example>'
+        selected: true
+        title: 生成 YouTube 节目标题
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1748847739375'
+      position:
+        x: 942
+        y: 559
+      positionAbsolute:
+        x: 942
+        y: 559
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1748847577727.text#}}/'
+        desc: ''
+        selected: false
+        title: 回复开场白
+        type: answer
+        variables: []
+      height: 105
+      id: '1748848198964'
+      position:
+        x: 1246
+        y: 287
+      positionAbsolute:
+        x: 1246
+        y: 287
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(sys_query: str) -> dict:\n    import re\n\n    if not sys_query\
+          \ or not isinstance(sys_query, str):\n        return {'result': \"4\"} #\
+          \ 返回字符串 \"4\"\n    \n    query = sys_query.strip()\n\n    # 1. 检查 GitHub\
+          \ URL\n    github_full_pattern = r\"^(?:https?:\\/\\/)?(?:www\\.)?github\\\
+          .com\\/[a-zA-Z0-9_.-]+\\/[a-zA-Z0-9_.-]+(?:\\/)?$\"\n    github_short_pattern\
+          \ = r\"^[a-zA-Z0-9_.-]+\\/[a-zA-Z0-9_.-]+(?:\\/)?$\"\n    if re.match(github_full_pattern,\
+          \ query) or \\\n       (re.match(github_short_pattern, query) and query.count('/')\
+          \ == 1 and not query.startswith('/') and not query.endswith('/')):\n   \
+          \     return {'result': \"1\"} # 返回字符串 \"1\"\n\n    # 2. 检查是否像字幕文本内容\n \
+          \   srt_timestamp_pattern = r\"\\d{1,2}:\\d{2}:\\d{2},\\d{3}\\s*-->\\s*\\\
+          d{1,2}:\\d{2}:\\d{2},\\d{3}\"\n    ass_ssa_dialogue_pattern = r\"^\\s*Dialogue:.*$\"\
+          \n    if re.search(srt_timestamp_pattern, query) or \\\n       re.search(ass_ssa_dialogue_pattern,\
+          \ query, re.MULTILINE) or \\\n       (query.count('\\n') >= 2 and len(query)\
+          \ > 50):\n        return {'result': \"2\"} # 返回字符串 \"2\"\n    \n    # 3.\
+          \ 其他\n    return {'result': \"4\"} # 返回字符串 \"3\""
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          variable: sys_query
+      height: 54
+      id: '1748851955333'
+      position:
+        x: 334
+        y: 287
+      positionAbsolute:
+        x: 334
+        y: 287
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 30ec1dcc-4110-4ee2-868a-e22a47a36c73
+            value: '1'
+            varType: string
+            variable_selector:
+            - '1748851955333'
+            - result
+          id: 'true'
+          logical_operator: and
+        - case_id: 399b6a8b-332c-443d-99da-0f0108e86625
+          conditions:
+          - comparison_operator: is
+            id: 80d995de-a3ff-49a9-888a-eac32a5483d4
+            value: '2'
+            varType: string
+            variable_selector:
+            - '1748851955333'
+            - result
+          id: 399b6a8b-332c-443d-99da-0f0108e86625
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 174
+      id: '1748852658301'
+      position:
+        x: 638
+        y: 287
+      positionAbsolute:
+        x: 638
+        y: 287
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1748847739375.text#}}'
+        desc: ''
+        selected: false
+        title: 生成 YouTube 节目标题
+        type: answer
+        variables: []
+      height: 105
+      id: '17488539483220'
+      position:
+        x: 1246
+        y: 559
+      positionAbsolute:
+        x: 1246
+        y: 559
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -91.09806775857544
+      y: -17.007382568183516
+      zoom: 0.923655537541026
