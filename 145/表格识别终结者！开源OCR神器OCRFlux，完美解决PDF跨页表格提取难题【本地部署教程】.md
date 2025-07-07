@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 表格识别终结者！开源OCR神器OCRFlux，完美解决PDF跨页表格提取难题【本地部署教程】
-## https://youtu.be/vNSlgVwpYm4
+## https://youtu.be/124us7J39Bo
 
 # 安装指南
 ## 安装系统组件
