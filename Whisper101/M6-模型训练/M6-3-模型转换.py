@@ -214,7 +214,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     # 设置路径：转换checkpoint-4000到models目录
-    checkpoint = 'whisper-large-v3-finetuned/checkpoint-4000'
+    checkpoint = 'whisper-large-v3-finetuned/checkpoint-20000'
     whisper_dump_path = '../models/custom.pt'
     
     print(f"🔄 开始转换微调模型...")

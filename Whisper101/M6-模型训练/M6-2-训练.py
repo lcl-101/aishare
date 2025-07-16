@@ -17,6 +17,9 @@ import os
 import numpy as np
 import json
 import datetime
+import librosa
+import soundfile as sf
+import subprocess
 from dataclasses import dataclass
 from typing import Any, Dict, List, Union
 
@@ -30,7 +33,7 @@ try:
     import evaluate
 except ImportError as e:
     print(f"❌ 缺少依赖包: {e}")
-    print("请安装依赖: pip install torch transformers datasets evaluate huggingface_hub accelerate")
+    print("请安装依赖: pip install torch transformers datasets evaluate huggingface_hub accelerate librosa soundfile")
     exit(1)
 
 # --- 配置参数 ---
@@ -45,8 +48,30 @@ LANGUAGE = "zh"
 TASK = "transcribe"
 OUTPUT_DIR = "whisper-large-v3-finetuned"
 
+def validate_audio_file(audio_file_path):
+    """验证音频文件是否有效"""
+    try:
+        # 使用librosa加载音频文件进行验证
+        audio, sr = librosa.load(audio_file_path, sr=16000, mono=True)
+        
+        # 检查音频是否为空或过短
+        if len(audio) == 0:
+            return False, "音频文件为空"
+        
+        if len(audio) < 0.1 * sr:  # 少于0.1秒
+            return False, "音频文件过短"
+        
+        # 检查音频数据是否有效
+        if np.all(audio == 0):
+            return False, "音频文件包含静音"
+        
+        return True, "音频文件有效"
+        
+    except Exception as e:
+        return False, f"音频文件加载失败: {str(e)}"
+
 def create_dataset_json(folder_path, json_file_path):
-    """创建数据集JSON文件"""
+    """创建数据集JSON文件，增加音频文件验证"""
     print(f"📝 正在创建数据集文件: {json_file_path}")
     
     # 移除旧文件
@@ -60,8 +85,11 @@ def create_dataset_json(folder_path, json_file_path):
         raise FileNotFoundError(f"数据集路径不存在: {folder_path}")
     
     count = 0
+    invalid_count = 0
+    invalid_files = []
+    
     with open(json_file_path, 'w', encoding='utf-8') as json_file:
-        for audio_file in os.listdir(audio_path):
+        for audio_file in sorted(os.listdir(audio_path)):  # 排序确保一致性
             if not audio_file.endswith('.wav'):
                 continue
                 
@@ -70,11 +98,26 @@ def create_dataset_json(folder_path, json_file_path):
             
             if not os.path.exists(text_file_path):
                 print(f"⚠️ 缺少对应文本文件: {text_file_path}")
+                invalid_count += 1
+                continue
+            
+            # 验证音频文件
+            is_valid, error_msg = validate_audio_file(audio_file_path)
+            if not is_valid:
+                print(f"⚠️ 跳过无效音频文件 {audio_file}: {error_msg}")
+                invalid_files.append((audio_file, error_msg))
+                invalid_count += 1
                 continue
             
             try:
                 with open(text_file_path, 'r', encoding='utf-8') as txt_file:
                     txt_sentence = txt_file.read().strip()
+                
+                # 检查文本是否为空
+                if not txt_sentence:
+                    print(f"⚠️ 跳过空文本文件: {text_file_path}")
+                    invalid_count += 1
+                    continue
                 
                 name = audio_file.replace('.wav', '')
                 data = {
@@ -88,37 +131,106 @@ def create_dataset_json(folder_path, json_file_path):
                 
             except Exception as e:
                 print(f"❌ 处理文件 {audio_file} 时出错: {e}")
+                invalid_count += 1
     
-    print(f"✅ 完成，共处理 {count} 个样本")
+    print(f"✅ 完成，共处理 {count} 个有效样本，跳过 {invalid_count} 个无效样本")
+    
     return count
 
 def prepare_dataset(batch, feature_extractor, tokenizer):
-    """数据预处理函数（支持批处理）"""
+    """数据预处理函数（支持批处理）使用librosa直接加载音频"""
     if isinstance(batch['audio_file_path'], list):
         # 批处理模式
         input_features = []
         labels = []
-        for audio in batch['audio_file_path']:
-            features = feature_extractor(
-                audio['array'], 
-                sampling_rate=audio['sampling_rate']
-            ).input_features[0]
-            input_features.append(features)
+        valid_indices = []
         
-        for text in batch['txt_sentence']:
-            label = tokenizer(text).input_ids
-            labels.append(label)
+        for i, audio_file_path in enumerate(batch['audio_file_path']):
+            try:
+                # 使用librosa直接加载音频文件
+                audio_array, sr = librosa.load(audio_file_path, sr=16000, mono=True)
+                
+                # 检查音频数组是否有效
+                if audio_array is None or len(audio_array) == 0:
+                    print(f"⚠️ 跳过空音频数组: 索引 {i}")
+                    continue
+                
+                # 检查音频长度
+                if len(audio_array) < 160:  # 0.01秒 at 16kHz
+                    print(f"⚠️ 跳过过短音频: 索引 {i}, 长度 {len(audio_array)}")
+                    continue
+                
+                features = feature_extractor(
+                    audio_array, 
+                    sampling_rate=sr
+                ).input_features[0]
+                input_features.append(features)
+                valid_indices.append(i)
+                
+            except Exception as e:
+                print(f"⚠️ 处理音频文件 {audio_file_path} 时出错: {e}")
+                continue
+        
+        # 只处理有效的文本
+        for i in valid_indices:
+            try:
+                text = batch['txt_sentence'][i]
+                if text and text.strip():
+                    label = tokenizer(text.strip()).input_ids
+                    labels.append(label)
+                else:
+                    # 如果文本为空，从有效列表中移除对应的音频特征
+                    if len(input_features) > len(labels):
+                        input_features.pop()
+                    print(f"⚠️ 跳过空文本: 索引 {i}")
+            except Exception as e:
+                print(f"⚠️ 处理文本 {i} 时出错: {e}")
+                # 移除对应的音频特征
+                if len(input_features) > len(labels):
+                    input_features.pop()
+                continue
             
         batch['input_features'] = input_features
         batch['labels'] = labels
+        
+        # 如果没有有效样本，返回空批次
+        if len(input_features) == 0:
+            print("⚠️ 当前批次无有效样本")
+            batch['input_features'] = []
+            batch['labels'] = []
     else:
         # 单个样本模式
-        audio = batch['audio_file_path']
-        batch['input_features'] = feature_extractor(
-            audio['array'], 
-            sampling_rate=audio['sampling_rate']
-        ).input_features[0]
-        batch['labels'] = tokenizer(batch['txt_sentence']).input_ids
+        try:
+            audio_file_path = batch['audio_file_path']
+            
+            # 使用librosa直接加载音频文件
+            audio_array, sr = librosa.load(audio_file_path, sr=16000, mono=True)
+            
+            # 检查音频数组
+            if audio_array is None or len(audio_array) == 0:
+                raise ValueError("音频数组为空")
+            
+            # 检查音频长度
+            if len(audio_array) < 160:  # 0.01秒 at 16kHz
+                raise ValueError(f"音频过短: {len(audio_array)}")
+            
+            batch['input_features'] = feature_extractor(
+                audio_array, 
+                sampling_rate=sr
+            ).input_features[0]
+            
+            # 处理文本
+            text = batch['txt_sentence']
+            if not text or not text.strip():
+                raise ValueError("文本为空")
+            
+            batch['labels'] = tokenizer(text.strip()).input_ids
+            
+        except Exception as e:
+            print(f"⚠️ 处理单个样本 {batch.get('audio_file_path', 'unknown')} 时出错: {e}")
+            # 返回空数据，让数据加载器跳过这个样本
+            batch['input_features'] = []
+            batch['labels'] = []
     
     return batch
 
@@ -206,19 +318,7 @@ def check_datasets_cache():
         total_size = shutil.disk_usage(cache_dir).used
         total_size_gb = total_size / (1024**3)
         
-        print(f"📦 数据集缓存信息:")
-        print(f"   📁 缓存目录: {cache_dir}")
-        print(f"   💾 缓存大小: {total_size_gb:.1f} GB")
-        
-        # 检查具体的json缓存
-        json_cache_dir = os.path.join(cache_dir, "json")
-        if os.path.exists(json_cache_dir):
-            json_dirs = [d for d in os.listdir(json_cache_dir) if d.startswith("default-")]
-            print(f"   🗂️ JSON缓存目录数量: {len(json_dirs)}")
-            
-            if total_size_gb > 50:  # 超过50GB提醒
-                print(f"   ⚠️ 缓存较大，可考虑清理旧缓存")
-                print(f"   🧹 清理命令: rm -rf {cache_dir}/json/default-*")
+        print(f"📦 数据集缓存信息: {total_size_gb:.1f} GB")
         
         return total_size_gb
     else:
@@ -280,9 +380,7 @@ def clear_datasets_cache():
     cleaned_size_gb = cleaned_size / (1024**3)
     
     if cleaned_count > 0:
-        print(f"🧹 缓存清理完成:")
-        print(f"   🗑️ 清理文件/目录数量: {cleaned_count}")
-        print(f"   💾 释放空间: {cleaned_size_gb:.1f} GB")
+        print(f"🧹 缓存清理完成，释放空间: {cleaned_size_gb:.1f} GB")
     else:
         print("📦 没有找到需要清理的缓存文件")
     
@@ -293,20 +391,14 @@ def main():
     print("🚀 开始 Whisper 模型微调训练")
     print("=" * 60)
     
-    # 检查GPU内存和缓存使用情况
+    # 检查GPU内存
     check_gpu_memory()
     print()
     
-    # 自动清理数据集缓存
-    print("🧹 自动清理数据集缓存...")
+    # 清理数据集缓存
+    print("🧹 清理数据集缓存...")
     cleared_size = clear_datasets_cache()
     print()
-    
-    # 检查清理后的缓存状态
-    if cleared_size > 0:
-        print("📦 清理后缓存状态:")
-        check_datasets_cache()
-        print()
     
     # 准备数据集路径
     train_dataset_path = os.path.join(DATASET_ROOT, TRAIN_FOLDER)
@@ -329,7 +421,6 @@ def main():
             'train': train_json_file, 
             'test': test_json_file
         })
-        dataset = dataset.cast_column('audio_file_path', Audio(sampling_rate=16000))
         print(f"✅ 数据集加载完成 - 训练: {train_count}, 测试: {test_count}")
         
         # 初始化模型组件
@@ -341,14 +432,6 @@ def main():
         
         # 数据预处理
         print("\n⚙️ 步骤 4: 数据预处理...")
-        print("📝 缓存机制说明:")
-        print("   🧹 自动清理: 每次启动时清理旧缓存，确保使用最新数据")
-        print("   🔄 首次运行: 处理数据并缓存到 ~/.cache/huggingface/datasets/")
-        print("   ⚡ 后续运行: 直接从缓存加载，速度极快")
-        print("   🏷️ 缓存键值: 基于数据内容和处理函数的哈希值")
-        print("   💾 存储格式: Apache Arrow 列式存储")
-        print("   🚀 性能优化: 大批量预处理 + 内存固定传输")
-        print("   📊 预期效果: 利用2TB内存优势，最大化单线程性能")
         
         def prepare_batch(batch):
             return prepare_dataset(batch, feature_extractor, tokenizer)
@@ -356,11 +439,12 @@ def main():
         dataset = dataset.map(
             prepare_batch, 
             remove_columns=dataset.column_names["train"], 
-            num_proc=1,  # 单进程避免共享内存限制
-            batched=True,  # 启用批处理
-            batch_size=200,  # 增大批处理大小，利用大内存优势
-            desc="🔄 处理音频特征和文本标签 (大批量优化)",
-            load_from_cache_file=True,  # 启用缓存加速
+            num_proc=1,
+            batched=True,
+            batch_size=300,
+            desc="🔄 处理音频特征和文本标签",
+            load_from_cache_file=True,
+            writer_batch_size=2000,
         )
         print("✅ 数据预处理完成")
         
@@ -379,65 +463,66 @@ def main():
         model.config.suppress_tokens = []
         print("✅ 模型加载完成")
         
-        # 训练参数
+        # 训练参数配置
         print("\n⚙️ 步骤 6: 配置训练参数...")
+        
         training_args = Seq2SeqTrainingArguments(
             output_dir=OUTPUT_DIR,
             
-            # --- 批处理大小优化 (显存充足时可以增大) ---
-            per_device_train_batch_size=20,        # 增大到20 (利用大内存和高显存)
-            per_device_eval_batch_size=12,         # 增大到12
-            gradient_accumulation_steps=3,         # 调整为3，有效批大小=20*3=60
+            # 批处理大小配置
+            per_device_train_batch_size=20,
+            per_device_eval_batch_size=10,
+            gradient_accumulation_steps=2,
             
-            # --- 学习率和训练步数优化 ---
-            learning_rate=5e-5,                    # 稍微提高学习率
-            warmup_steps=2000,                     # 增加预热步数
-            max_steps=20000,                       # 增加训练步数，更充分训练
+            # 学习率策略
+            learning_rate=1e-4,
+            warmup_steps=1000,
+            max_steps=20000,
             
-            # --- 内存和计算优化 ---
-            gradient_checkpointing=False,          # 禁用梯度检查点避免冲突
-            fp16=False,                            # 关闭fp16
-            bf16=True,                             # 使用bf16，精度更好
-            dataloader_pin_memory=True,            # 启用pin_memory提升GPU传输速度
-            dataloader_num_workers=0,              # 保持单进程避免共享内存不足
-            # dataloader_prefetch_factor=2,        # 注释掉，因为workers=0时不需要
+            # 内存和计算优化
+            gradient_checkpointing=False,
+            fp16=False,
+            bf16=True,
+            dataloader_pin_memory=True,
+            dataloader_num_workers=4,
+            dataloader_prefetch_factor=2,
             
-            # --- 评估和保存策略优化 ---
+            # 评估策略
             eval_strategy="steps",
-            eval_steps=2000,                       # 每2000步评估一次
-            save_steps=2000,                       # 每2000步保存一次
-            save_total_limit=3,                    # 只保留最近3个检查点
-            load_best_model_at_end=True,           # 训练结束加载最佳模型
+            eval_steps=3000,
+            save_steps=3000,
+            save_total_limit=2,
+            load_best_model_at_end=True,
             
-            # --- 生成参数优化 ---
+            # 生成参数
             predict_with_generate=True,
-            generation_max_length=448,             # 增加最大生成长度
+            generation_max_length=256,
             
-            # --- 优化器和调度器 ---
-            optim="adamw_torch",                   # 使用AdamW优化器
-            weight_decay=0.01,                     # 添加权重衰减
-            lr_scheduler_type="cosine",            # 使用余弦学习率调度
+            # 优化器配置
+            optim="adamw_torch_fused",
+            weight_decay=0.01,
+            lr_scheduler_type="polynomial",
             
-            # --- 日志和监控 ---
-            logging_steps=100,                     # 增加日志频率
-            report_to=None,                        # 可改为["tensorboard"]启用tensorboard
+            # 日志和监控
+            logging_steps=50,
+            report_to=None,
             
-            # --- 其他优化设置 ---
+            # 训练效率设置
             metric_for_best_model="wer",
             greater_is_better=False,
             push_to_hub=False,
-            remove_unused_columns=False,           # 保留所有列
+            remove_unused_columns=False,
             
-            # --- 高显存专用设置 ---
-            max_grad_norm=1.0,                     # 梯度裁剪
-            warmup_ratio=0.1,                      # 预热比例
+            # 数值稳定性设置
+            max_grad_norm=0.5,
+            warmup_ratio=0.067,
         )
         
         processor.save_pretrained(training_args.output_dir)
         print("✅ 训练参数配置完成")
         
         # 显示训练配置信息
-        print(f"\n📊 训练配置信息:")
+        print(f"\n📊 训练配置:")
         print(f"   🎯 模型: {MODEL_NAME}")
         print(f"   💾 批大小: {training_args.per_device_train_batch_size} (训练) / {training_args.per_device_eval_batch_size} (评估)")
         print(f"   📈 有效批大小: {training_args.per_device_train_batch_size * training_args.gradient_accumulation_steps}")
@@ -445,11 +530,9 @@ def main():
         print(f"   🏃 训练步数: {training_args.max_steps}")
         print(f"   🎲 预热步数: {training_args.warmup_steps}")
         print(f"   💾 精度模式: {'BF16' if training_args.bf16 else 'FP16' if training_args.fp16 else 'FP32'}")
+        print(f"   🔧 优化器: {training_args.optim}")
+        print(f"   📊 数据进程: {training_args.dataloader_num_workers} workers")
         print(f"   💿 输出目录: {training_args.output_dir}")
-        
-        # 估算训练时间 (基于实际每步时间)
-        estimated_time_hours = (training_args.max_steps * 14.21) / 3600  # 14.21秒/步
-        print(f"   ⏰ 预估训练时间: {estimated_time_hours:.1f} 小时 (基于14.21秒/步)")
         print()
         
         # 创建训练器
@@ -461,7 +544,7 @@ def main():
             eval_dataset=dataset["test"],
             data_collator=data_collator,
             compute_metrics=compute_metrics_wrapped,
-            processing_class=processor,  # 使用新的参数名
+            processing_class=processor,
         )
         
         # 开始训练
