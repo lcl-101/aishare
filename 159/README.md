@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 【AI物体移除】效果炸裂！新一代开源神器 ObjectClear，一键完美消除物体+阴影，本地部署保姆级教程。
-## https://youtu.be/A9lWgstDURA
+## https://youtu.be/CRTf7tbVaIA
 
 # 安装指南
 ## 创建运行环境
