@@ -1,0 +1,27 @@
+# FLUX WebUI Requirements
+# 核心依赖
+torch>=2.0.0
+torchvision
+diffusers>=0.29.0
+transformers>=4.30.0
+accelerate>=0.20.0
+protobuf 
+sentencepiece 
+
+# UI 框架
+gradio>=4.0.0
+
+# 图像处理
+Pillow>=9.0.0
+
+# 优化库
+xformers  # 用于内存高效的注意力机制
+flash-attn  # Flash Attention支持
+
+# 其他工具
+safetensors>=0.3.0
+numpy
+scipy
+
+# 可选：性能优化
+# xformers  # 如果需要内存优化，取消注释此行
