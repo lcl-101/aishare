@@ -1,6 +1,0 @@
-numpy
-scikit-image
-pillow
-opencv-python
-matplotlib
-onnx
