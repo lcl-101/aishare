@@ -13,7 +13,8 @@ cd SeedX
 mkdir checkpoints  
 
 ## 安装依赖组件
-pip install vllm  
+pip install vllm==0.8.0  
+transformers==4.51.3  
 pip install gradio  
 
 ## 下载模型
