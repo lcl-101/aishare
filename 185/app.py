@@ -5,7 +5,7 @@ import torch
 import gradio as gr
 from PIL import Image
 import torch.nn.functional as F
-from torchvision.transforms import functional as TF
+from torchvision.transforms import functional as TF 
 from detectron2.checkpoint import DetectionCheckpointer
 import warnings
 import time
