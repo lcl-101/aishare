@@ -1,5 +1,5 @@
 # Youtube 节目：
-## 腾讯AI动画神器ToonComposer！仅需几张图，秒生流畅动画！本地部署实测：66GB显存劝退？保姆级教程来了！
+## 手机厂商的抠图黑科技？vivo 开源 SDMatte 本地部署，标准版 vs 轻量版效果大比拼！
 ## https://youtu.be/y386e7GdqJs  
 
 # 安装指南
