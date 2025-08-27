@@ -4,7 +4,6 @@
 
 # 安装指南
 ## 创建运行环境
-## 创建运行环境
 conda create -n SenseVoice python=3.10 -y  
 conda activate SenseVoice  
 
