@@ -1,0 +1,4 @@
+transformers==4.56.0
+accelerate==0.33.0
+flash_attn
+gradio
