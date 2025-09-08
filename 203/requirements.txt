@@ -1,0 +1,15 @@
+transformers>=4.42.0
+accelerate>=0.30.0
+sentencepiece>=0.1.99
+safetensors>=0.4.4
+torch>=2.1.0
+torchvision
+gradio>=4.36.0
+Pillow>=10.3.0
+# For video decoding; one of these should work
+decord>=0.6.0; platform_system!="Windows"
+imageio>=2.34.0
+imageio-ffmpeg>=0.5.1
+keye-vl-utils
+einops
+flash_attn
