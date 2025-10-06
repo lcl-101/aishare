@@ -1,0 +1,23 @@
+opencv-python>=4.9.0.80
+diffusers>=0.31.0
+transformers>=4.49.0
+tokenizers>=0.20.3
+# accelerate 1.x expects NumPy 2 (uses numpy._core); project pins NumPy <2, so keep accelerate <1.0
+accelerate>=0.28,<1.0.0
+tqdm
+imageio
+easydict
+ftfy
+dashscope
+imageio-ffmpeg
+scikit-image   
+loguru
+gradio>=5.0.0
+# Pin to last stable NumPy 1.x to avoid incompatibilities with some libs not yet validated on 2.x
+numpy==1.26.4
+xfuser>=0.4.1
+pyloudnorm
+optimum-quanto==0.2.6
+scenedetect
+moviepy==1.0.3
+decord
