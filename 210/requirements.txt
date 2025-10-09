@@ -1,0 +1,45 @@
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch==2.5.1
+torchvision==0.20.1
+
+# Pure Python packages (no compilation needed)
+pillow
+imageio
+imageio-ffmpeg
+tqdm
+easydict
+opencv-python-headless
+scipy
+ninja
+rembg
+trimesh
+open3d
+xatlas
+pyvista
+pymeshfix
+igraph
+transformers
+numba==0.60.0
+numpy==1.26.3
+
+# ONNX Runtime with CUDA 12
+--extra-index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/
+onnxruntime-gpu>=1.18.1
+
+# Packages that need torch installed first
+git+https://github.com/EasternJournalist/utils3d.git@9a4eb15e4021b67b12c460c7057d642626897ec8
+xformers
+https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.1.post1/flash_attn-2.7.1.post1+cu12torch2.5cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+git+https://github.com/NVlabs/nvdiffrast.git
+spconv-cu120
+
+# Kaolin (needs torch)
+--find-links https://nvidia-kaolin.s3.us-east-2.amazonaws.com/torch-2.5.1_cu124.html
+kaolin
+
+# Gradio (install after all other packages to avoid dependency conflicts)
+gradio==4.44.1
+gradio_litmodel3d
+
+# Note: diff-gaussian-rasterization must be installed separately after requirements.txt
+# Install it with: pip install git+https://github.com/autonomousvision/mip-splatting.git#subdirectory=submodules/diff-gaussian-rasterization
