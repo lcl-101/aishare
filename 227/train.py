@@ -1,4 +1,5 @@
 import os
+import sys
 import torch
 import torchvision
 from torch.autograd import Variable
@@ -12,7 +13,9 @@ import torchvision.transforms as standard_transforms
 
 import numpy as np
 import glob
-import os
+
+# 添加 U-2-Net 目录到 Python 路径
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'U-2-Net'))
 
 from data_loader import Rescale
 from data_loader import RescaleT
@@ -46,17 +49,22 @@ def muti_bce_loss_fusion(d0, d1, d2, d3, d4, d5, d6, labels_v):
 
 # ------- 2. set the directory of training dataset --------
 
-model_name = 'u2net' #'u2netp'
+model_name = 'u2net'  # 'u2netp'
 
-#data_dir = "."
-tra_image_dir = "images/"
+# 数据目录（相对于 train.py 所在目录）
+base_dir = os.path.dirname(os.path.abspath(__file__))
+u2net_dir = os.path.join(base_dir, 'U-2-Net')
 
-tra_label_dir = "masks/"
+tra_image_dir = os.path.join(u2net_dir, 'images') + os.sep
+tra_label_dir = os.path.join(u2net_dir, 'masks') + os.sep
 
 image_ext = '.jpg'
 label_ext = '.png'
 
-model_dir = 'saved_models/'
+model_dir = os.path.join(u2net_dir, 'saved_models') + os.sep
+
+# 确保模型保存目录存在
+os.makedirs(model_dir, exist_ok=True)
 
 epoch_num = 10000
 batch_size_train = 128
@@ -164,4 +172,3 @@ if __name__ == '__main__':
                 running_tar_loss = 0.0
                 net.train()  # resume train
                 ite_num4val = 0
-

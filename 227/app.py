@@ -34,7 +34,7 @@ setup_local_model_env()
 
 # --- 1. 模型会话缓存 (修改为支持本地模型) ---
 SESSIONS = {}  # 清空缓存，重新加载
-AVAILABLE_MODELS = ["u2net", "u2netp", "isnet-general-use", "isnet-anime", "sam", "custom"]
+AVAILABLE_MODELS = ["u2net", "custom"]
 LOCAL_U2NET_BASIC = None  # 基础抠图使用的本地U-2-Net模型
 
 def get_local_model_path(model_name):
@@ -202,191 +202,15 @@ def advanced_remove_image(image, model_name, use_alpha_matting, bgcolor_hex, onl
         gr.Error(f"处理失败: {e}")
         return None
 
-def batch_remove_images(files, model_name, only_mask):
-    if not files:
-        gr.Warning("请上传至少一张图片！")
-        return None
-    try:
-        session = get_session(model_name)
-        results = []
-        for file_obj in files:
-            input_image = Image.open(file_obj.name)
-            if only_mask:
-                # 生成 mask
-                output_image = rembg.remove(input_image, session=session, only_mask=True)
-            else:
-                # 正常抠图
-                output_image = rembg.remove(input_image, session=session)
-            results.append(output_image)
-        return results
-    except Exception as e:
-        gr.Error(f"批量处理失败: {e}")
-        return None
 
-# --- SAM 模型相关函数 (已修改) ---
-
-# **** MODIFICATION START ****
-# 为了简化，我们使用常规的Image组件和按钮来处理SAM交互
-def sam_interactive(image, points_state, labels_state, evt: gr.SelectData):
-    if image is None:
-        gr.Warning("请先上传图片！")
-        return image, points_state, labels_state
-        
-    # 获取点击坐标 (x, y)
-    x, y = evt.index[0], evt.index[1]
-    
-    # 复制当前点列表并添加新点
-    new_points = points_state.copy()
-    new_labels = labels_state.copy()
-    
-    # rembg SAM 需要 (y, x) 格式的坐标
-    new_points.append([y, x])
-    new_labels.append(1)  # 1表示前景点
-    
-    print(f"Added point: ({x}, {y}), Total points: {len(new_points)}")
-    
-    # 使用 SAM 模型实时预览分割区域
-    try:
-        from PIL import ImageDraw, ImageFont
-        import copy
-        
-        session = get_session("sam")
-        
-        # 转换为 numpy 数组
-        input_points = np.array(new_points, dtype=np.float32)
-        input_labels = np.array(new_labels, dtype=np.int32)
-        
-        # 使用 SAM 获取分割结果
-        sam_result = rembg.remove(
-            image,
-            session=session,
-            input_points=input_points,
-            input_labels=input_labels
-        )
-        
-        # 创建可视化图像
-        marked_image = copy.deepcopy(image)
-        
-        # 从 SAM 结果创建掩码并显示分割区域
-        if sam_result:
-            # 创建半透明绿色覆盖层
-            overlay = Image.new("RGBA", image.size, (0, 0, 0, 0))
-            
-            # 如果 SAM 结果是 RGBA 格式，使用 alpha 通道作为掩码
-            if sam_result.mode == 'RGBA':
-                mask = sam_result.split()[-1]  # 获取 alpha 通道
-                mask_array = np.array(mask)
-                overlay_array = np.array(overlay)
-                
-                # 在前景区域设置绿色
-                green_mask = mask_array > 128
-                overlay_array[green_mask] = [0, 255, 0, 100]  # 半透明绿色
-                
-                overlay = Image.fromarray(overlay_array, 'RGBA')
-            else:
-                # 通过对比原图和结果来创建掩码
-                sam_rgb = sam_result.convert('RGB')
-                original_rgb = image.convert('RGB')
-                
-                sam_array = np.array(sam_rgb)
-                original_array = np.array(original_rgb)
-                overlay_array = np.array(overlay)
-                
-                # 找出有差异的像素
-                diff = np.sum(np.abs(sam_array.astype(int) - original_array.astype(int)), axis=2)
-                changed_mask = diff > 30
-                
-                overlay_array[changed_mask] = [0, 255, 0, 100]  # 半透明绿色
-                overlay = Image.fromarray(overlay_array, 'RGBA')
-            
-            # 将覆盖层合成到原图上
-            marked_image = marked_image.convert("RGBA")
-            marked_image = Image.alpha_composite(marked_image, overlay)
-            marked_image = marked_image.convert("RGB")
-        
-        # 在图像上绘制标记点
-        draw = ImageDraw.Draw(marked_image)
-        
-        for i, point in enumerate(new_points):
-            # 点坐标是 [y, x] 格式，需要转换为 [x, y] 来绘制
-            point_x, point_y = point[1], point[0]
-            
-            # 绘制标记点
-            radius = 8
-            draw.ellipse([point_x - radius, point_y - radius, 
-                         point_x + radius, point_y + radius], 
-                         fill='red', outline='white', width=2)
-            
-            # 绘制点编号
-            text = str(i + 1)
-            draw.text((point_x + 10, point_y - 10), text, fill='white')
-        
-        return marked_image, new_points, new_labels
-        
-    except Exception as e:
-        print(f"SAM preview error: {e}")
-        # 如果失败，至少显示标记点
-        from PIL import ImageDraw
-        import copy
-        
-        marked_image = copy.deepcopy(image)
-        draw = ImageDraw.Draw(marked_image)
-        
-        for i, point in enumerate(new_points):
-            point_x, point_y = point[1], point[0]
-            radius = 8
-            draw.ellipse([point_x - radius, point_y - radius, 
-                         point_x + radius, point_y + radius], 
-                         fill='red', outline='white', width=2)
-            text = str(i + 1)
-            draw.text((point_x + 10, point_y - 10), text, fill='white')
-        
-        return marked_image, new_points, new_labels
-
-def sam_run_process(image, points, labels):
-    if image is None:
-        gr.Warning("请先上传图片并标记！")
-        return None
-    if not points:
-        gr.Warning("请至少在图片上标记一个点！")
-        return None
-
-    try:
-        session = get_session("sam")
-        
-        input_points = np.array(points, dtype=np.float32)
-        input_labels = np.array(labels, dtype=np.int32)
-        
-        print(f"Running SAM with {len(points)} points")
-        
-        result = rembg.remove(
-            image,
-            session=session,
-            input_points=input_points,
-            input_labels=input_labels
-        )
-        
-        return result
-    except Exception as e:
-        print(f"SAM processing error: {e}")
-        gr.Error(f"SAM处理失败: {e}")
-        return None
-
-def clear_sam_points(original_image):
-    # 清除点和标签，恢复原始图片
-    print("Clearing all SAM points")
-    return original_image, [], []
-# **** MODIFICATION END ****
-
-
-# --- 3. Gradio 界面布局 (已修改) ---
+# --- 3. Gradio 界面布局 ---
 
 with gr.Blocks(theme=gr.themes.Soft(), title="Rembg WebUI") as demo:
     gr.Markdown("# 🖼️ Rembg 智能抠图工具箱")
     gr.Markdown("一个基于 `rembg` 库的强大WebUI，由AI驱动，轻松移除图片背景。")
 
     with gr.Tabs():
-        # --- 其他 Tabs (修改为显示本地模型信息) ---
+        # --- 基础抠图 ---
         with gr.TabItem("🚀 基础抠图"):
             gr.Markdown("**使用本地U-2-Net模型进行快速抠图**")
             with gr.Row():
@@ -394,6 +218,7 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Rembg WebUI") as demo:
                 output_basic = gr.Image(type="pil", label="抠图结果")
             btn_basic = gr.Button("一键抠图", variant="primary")
         
+        # --- 高级选项 ---
         with gr.TabItem("🛠️ 高级选项"):
             with gr.Row():
                 input_advanced = gr.Image(type="pil", label="上传图片")
@@ -406,70 +231,9 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Rembg WebUI") as demo:
                 only_mask_check = gr.Checkbox(label="🎭 只生成 Mask (黑白遮罩)", value=False)
             btn_advanced = gr.Button("开始处理", variant="primary")
 
-        with gr.TabItem("📂 批量处理"):
-            with gr.Row():
-                input_batch = gr.File(file_count="multiple", label="上传多张图片")
-                output_batch = gr.Gallery(label="处理结果", columns=4, height="auto")
-            with gr.Row():
-                model_batch = gr.Dropdown(AVAILABLE_MODELS, value="custom", label="选择模型")
-                only_mask_batch = gr.Checkbox(label="🎭 只生成 Mask", value=False)
-            btn_batch = gr.Button("开始批量处理", variant="primary")
-            
-        # --- Tab 4: 交互式分割 (SAM) (已修改) ---
-        with gr.TabItem("👆 交互式分割 (SAM)"):
-            gr.Markdown("使用 Segment Anything Model (SAM) 进行交互式抠图。上传图片后，在图片上点击标记你想要保留的物体部分。")
-            
-            points_state = gr.State([])
-            labels_state = gr.State([])
-            original_image_state = gr.State()
-            
-            with gr.Row():
-                # **** MODIFICATION START ****
-                # 使用简单的 Image 组件支持点击
-                input_sam = gr.Image(type="pil", label="上传图片并点击标记点")
-                # **** MODIFICATION END ****
-                output_sam = gr.Image(type="pil", label="分割结果")
-            
-            with gr.Row():
-                btn_sam_run = gr.Button("运行分割", variant="primary")
-                btn_sam_clear = gr.Button("清除所有标记")
-
-    # --- 4. 事件绑定 (已修改) ---
+    # --- 事件绑定 ---
     btn_basic.click(fn=basic_remove_image, inputs=[input_basic], outputs=[output_basic])
     btn_advanced.click(fn=advanced_remove_image, inputs=[input_advanced, model_select, alpha_matting_check, bgcolor_picker, only_mask_check], outputs=[output_advanced])
-    btn_batch.click(fn=batch_remove_images, inputs=[input_batch, model_batch, only_mask_batch], outputs=[output_batch])
-    
-    # **** MODIFICATION START ****
-    # SAM Tab 的事件绑定
-    
-    # 当上传新图片时，保存原始图片并清除所有标记
-    input_sam.upload(
-        fn=lambda img: (img, [], [], img),
-        inputs=[input_sam],
-        outputs=[input_sam, points_state, labels_state, original_image_state]
-    )
-    
-    # 点击图片时添加标记点
-    input_sam.select(
-        fn=sam_interactive,
-        inputs=[original_image_state, points_state, labels_state],
-        outputs=[input_sam, points_state, labels_state]
-    )
-    
-    # 运行 SAM 分割
-    btn_sam_run.click(
-        fn=sam_run_process,
-        inputs=[original_image_state, points_state, labels_state],
-        outputs=[output_sam]
-    )
-    
-    # 清除所有标记
-    btn_sam_clear.click(
-        fn=clear_sam_points,
-        inputs=[original_image_state],
-        outputs=[input_sam, points_state, labels_state]
-    )
-    # **** MODIFICATION END ****
 
 if __name__ == "__main__":
     demo.launch(server_name="0.0.0.0")
