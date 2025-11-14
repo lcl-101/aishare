@@ -1,0 +1,19 @@
+gradio>=4.0.0
+torch==2.6.0
+torchvision==0.21.0
+torchaudio==2.6.0
+transformers>=4.37.0
+pillow>=10.0.0
+accelerate>=0.20.0
+qwen-vl-utils
+qwen-agent
+bitsandbytes>=0.41.0
+optimum>=1.16.0
+beautifulsoup4
+requests
+numpy
+opencv-python
+pdf2image
+decord
+# Install PyTorch with CUDA 12.4 support using:
+# pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
