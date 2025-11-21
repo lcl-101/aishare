@@ -7,7 +7,7 @@ import time
 from typing import Dict, List, Optional, Tuple
 
 import cv2
-import gradio as gr
+import gradio as gr 
 import numpy as np
 import torch
 from PIL import Image
