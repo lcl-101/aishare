@@ -160,12 +160,12 @@ class GradioSAM3DBodyApp:
         use_mask: bool,
         inference_type: str,
         person_choice: str,
-    ) -> Tuple[Optional[np.ndarray], str, Optional[str], Optional[str], Any]:
+    ) -> Tuple[Optional[np.ndarray], str, Optional[str], Any]:
         if image is None:
             dropdown_update = gr.update(
                 choices=[ALL_PERSONS_LABEL], value=ALL_PERSONS_LABEL
             )
-            return None, "请先上传一张图片。", None, None, dropdown_update
+            return None, "请先上传一张图片。", None, dropdown_update
 
         image_rgb = np.array(image.convert("RGB"))
         try:
@@ -179,7 +179,7 @@ class GradioSAM3DBodyApp:
             dropdown_update = gr.update(
                 choices=[ALL_PERSONS_LABEL], value=ALL_PERSONS_LABEL
             )
-            return None, f"推理失败：{exc}", None, None, dropdown_update
+            return None, f"推理失败：{exc}", None, dropdown_update
 
         if len(outputs) == 0:
             self.current_outputs = []
@@ -190,7 +190,6 @@ class GradioSAM3DBodyApp:
             return (
                 None,
                 "未检测到人体，请尝试降低阈值或更换图片。",
-                None,
                 None,
                 dropdown_update,
             )
@@ -212,7 +211,7 @@ class GradioSAM3DBodyApp:
         self.last_inference_type = inference_type
 
         filtered_outputs = self._filter_outputs(outputs, selected_choice)
-        rendered_rgb, status, glb_path, obj_path = self._render_selection(
+        rendered_rgb, status, glb_path = self._render_selection(
             input_bgr,
             filtered_outputs,
             len(outputs),
@@ -221,20 +220,20 @@ class GradioSAM3DBodyApp:
             inference_type,
         )
 
-        return rendered_rgb, status, glb_path, obj_path, dropdown_update
+        return rendered_rgb, status, glb_path, dropdown_update
 
     def update_selection(
         self, person_choice: str
-    ) -> Tuple[Optional[np.ndarray], str, Optional[str], Optional[str]]:
+    ) -> Tuple[Optional[np.ndarray], str, Optional[str]]:
         if self.current_image_rgb is None or len(self.current_outputs) == 0:
-            return None, "请先运行一次推理，然后再选择人物。", None, None
+            return None, "请先运行一次推理，然后再选择人物。", None
 
         choice = (
             person_choice if person_choice in self.person_choice_map else ALL_PERSONS_LABEL
         )
         filtered_outputs = self._filter_outputs(self.current_outputs, choice)
         input_bgr = cv2.cvtColor(self.current_image_rgb, cv2.COLOR_RGB2BGR)
-        rendered_rgb, status, glb_path, obj_path = self._render_selection(
+        rendered_rgb, status, glb_path = self._render_selection(
             input_bgr,
             filtered_outputs,
             len(self.current_outputs),
@@ -242,7 +241,7 @@ class GradioSAM3DBodyApp:
             self.last_use_mask,
             self.last_inference_type,
         )
-        return rendered_rgb, status, glb_path, obj_path
+        return rendered_rgb, status, glb_path
 
     def _build_person_choices(self, outputs):
         choices = [ALL_PERSONS_LABEL]
@@ -278,7 +277,7 @@ class GradioSAM3DBodyApp:
                 "当前选择未匹配到人物。"
                 f" 最近一次推理共检测到 {total_count} 人。"
             )
-            return None, status, None, None
+            return None, status, None
 
         rendered_bgr = visualize_sample_together(input_bgr, outputs, self.estimator.faces)
         rendered_rgb = cv2.cvtColor(rendered_bgr.astype(np.uint8), cv2.COLOR_BGR2RGB)
@@ -296,7 +295,7 @@ class GradioSAM3DBodyApp:
         if vertices is not None:
             obj_path, glb_path = _export_mesh_files(vertices, faces)
 
-        return rendered_rgb, status, glb_path, obj_path
+        return rendered_rgb, status, glb_path
 
     def build_ui(self):
         with gr.Blocks(title="SAM 3D Body 在线演示") as demo:
@@ -336,8 +335,7 @@ class GradioSAM3DBodyApp:
                 )
 
             status_box = gr.Textbox(label="状态", interactive=False)
-            mesh_view = gr.Model3D(label="3D 预览", clear_color=[1, 1, 1, 0])
-            download_file = gr.File(label="下载 OBJ 模型", interactive=False)
+            mesh_view = gr.Model3D(label="3D 预览", clear_color=[0.05, 0.05, 0.05, 1])
             run_button = gr.Button("开始推理", variant="primary")
 
             run_button.click(
@@ -353,7 +351,6 @@ class GradioSAM3DBodyApp:
                     image_output,
                     status_box,
                     mesh_view,
-                    download_file,
                     person_selector,
                 ],
             )
@@ -361,7 +358,7 @@ class GradioSAM3DBodyApp:
             person_selector.change(
                 fn=self.update_selection,
                 inputs=person_selector,
-                outputs=[image_output, status_box, mesh_view, download_file],
+                outputs=[image_output, status_box, mesh_view],
             )
 
         return demo
