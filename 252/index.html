@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VibeVoice Realtime TTS</title>
+  <style>
+    :root {
+      --bg: #f5f7fc;
+      --surface: #ffffff;
+      --accent: #5562ff;
+      --accent-hover: #3f4dff;
+      --text: #1f2742;
+      --text-muted: #5d6789;
+      --border: rgba(85, 98, 255, 0.18);
+      --shadow: 0 12px 40px rgba(31, 39, 66, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      font-size: 14px;
+    }
+    .field {
+      margin-bottom: 20px;
+    }
+    .field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      resize: vertical;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(85, 98, 255, 0.15);
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .control-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .control-item label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    select, input[type="range"] {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fafbff;
+    }
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .range-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .range-value {
+      min-width: 40px;
+      text-align: right;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    button {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 14px rgba(85, 98, 255, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-secondary {
+      background: #f1f3ff;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: #e6e9ff;
+    }
+    .btn-secondary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, #eef2ff 0%, #f7f9ff 100%);
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .metric {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      font-size: 14px;
+    }
+    .metric-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .metric-unit {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+    .status {
+      text-align: center;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+    .status.idle { background: #f1f3ff; color: var(--text-muted); }
+    .status.connecting { background: #fff3cd; color: #856404; }
+    .status.streaming { background: #d4edda; color: #155724; }
+    .status.error { background: #f8d7da; color: #721c24; }
+    .log-container {
+      background: #f7f9ff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .log-entry { margin-bottom: 4px; }
+    .log-time { color: var(--text-muted); }
+    .log-msg { color: var(--text); }
+
+    @media (max-width: 600px) {
+      .controls { flex-direction: column; }
+      .btn-row { flex-direction: column; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎙️ VibeVoice Realtime TTS</h1>
+    <p class="subtitle">实时流式语音合成 - 边生成边播放</p>
+
+    <div class="field">
+      <label for="text">输入文本</label>
+      <textarea id="text" placeholder="请输入要合成的文本...">Welcome to VibeVoice, a cutting-edge realtime text-to-speech system. Unlike traditional TTS systems that require you to wait for the entire audio to be generated, VibeVoice streams the audio in real-time as it's being created. This means you can start listening almost instantly!</textarea>
+    </div>
+
+    <div class="controls">
+      <div class="control-item">
+        <label>声音</label>
+        <select id="voice"></select>
+      </div>
+      <div class="control-item">
+        <label>CFG Scale</label>
+        <div class="range-wrapper">
+          <input type="range" id="cfg" min="1.0" max="3.0" step="0.1" value="1.5">
+          <span class="range-value" id="cfgValue">1.5</span>
+        </div>
+      </div>
+      <div class="control-item">
+        <label>推理步数</label>
+        <div class="range-wrapper">
+          <input type="range" id="steps" min="3" max="20" step="1" value="5">
+          <span class="range-value" id="stepsValue">5</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button id="startBtn" class="btn-primary">▶️ 开始生成</button>
+      <button id="stopBtn" class="btn-secondary" disabled>⏹️ 停止</button>
+      <button id="saveBtn" class="btn-secondary" disabled>💾 保存音频</button>
+    </div>
+
+    <div id="status" class="status idle">准备就绪</div>
+
+    <div class="metrics">
+      <div class="metric">
+        <span>首块延迟</span>
+        <span class="metric-value" id="latency">-</span>
+        <span class="metric-unit">秒</span>
+      </div>
+      <div class="metric">
+        <span>已生成</span>
+        <span class="metric-value" id="generated">0.00</span>
+        <span class="metric-unit">秒</span>
+      </div>
+      <div class="metric">
+        <span>已播放</span>
+        <span class="metric-value" id="played">0.00</span>
+        <span class="metric-unit">秒</span>
+      </div>
+    </div>
+
+    <div class="log-container" id="log"></div>
+  </div>
+
+<script>
+const SAMPLE_RATE = 24000;
+const BUFFER_SIZE = 2048;
+const PREBUFFER_SEC = 0.15;
+
+// 元素
+const textEl = document.getElementById('text');
+const voiceEl = document.getElementById('voice');
+const cfgEl = document.getElementById('cfg');
+const stepsEl = document.getElementById('steps');
+const cfgValueEl = document.getElementById('cfgValue');
+const stepsValueEl = document.getElementById('stepsValue');
+const startBtn = document.getElementById('startBtn');
+const stopBtn = document.getElementById('stopBtn');
+const saveBtn = document.getElementById('saveBtn');
+const statusEl = document.getElementById('status');
+const latencyEl = document.getElementById('latency');
+const generatedEl = document.getElementById('generated');
+const playedEl = document.getElementById('played');
+const logEl = document.getElementById('log');
+
+// 状态
+let ws = null;
+let audioCtx = null;
+let scriptNode = null;
+let audioBuffer = new Float32Array(0);
+let isPlaying = false;
+let playbackSamples = 0;
+let recordedChunks = [];
+let playbackTimer = null;
+
+// 初始化
+async function init() {
+  try {
+    const res = await fetch('/config');
+    const config = await res.json();
+    voiceEl.innerHTML = config.voices.map(v => 
+      `<option value="${v}" ${v === config.default_voice ? 'selected' : ''}>${v}</option>`
+    ).join('');
+    log('系统就绪');
+  } catch (e) {
+    log('加载配置失败: ' + e.message, 'error');
+  }
+}
+
+// 日志
+function log(msg, type = 'info') {
+  const time = new Date().toLocaleTimeString();
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-msg">${msg}</span>`;
+  logEl.appendChild(entry);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+// 状态更新
+function setStatus(text, type = 'idle') {
+  statusEl.textContent = text;
+  statusEl.className = 'status ' + type;
+}
+
+// 开始播放
+function startPlayback() {
+  if (isPlaying) return;
+  
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: SAMPLE_RATE });
+  scriptNode = audioCtx.createScriptProcessor(BUFFER_SIZE, 1, 1);
+  
+  scriptNode.onaudioprocess = (e) => {
+    const output = e.outputBuffer.getChannelData(0);
+    const needed = output.length;
+    
+    if (audioBuffer.length >= needed) {
+      output.set(audioBuffer.subarray(0, needed));
+      audioBuffer = audioBuffer.subarray(needed);
+      playbackSamples += needed;
+    } else if (audioBuffer.length > 0) {
+      output.set(audioBuffer);
+      output.fill(0, audioBuffer.length);
+      playbackSamples += audioBuffer.length;
+      audioBuffer = new Float32Array(0);
+    } else {
+      output.fill(0);
+    }
+  };
+  
+  scriptNode.connect(audioCtx.destination);
+  isPlaying = true;
+  
+  playbackTimer = setInterval(() => {
+    playedEl.textContent = (playbackSamples / SAMPLE_RATE).toFixed(2);
+  }, 100);
+  
+  log('开始播放');
+}
+
+// 停止播放
+function stopPlayback() {
+  if (scriptNode) {
+    scriptNode.disconnect();
+    scriptNode = null;
+  }
+  if (audioCtx) {
+    audioCtx.close();
+    audioCtx = null;
+  }
+  if (playbackTimer) {
+    clearInterval(playbackTimer);
+    playbackTimer = null;
+  }
+  isPlaying = false;
+}
+
+// 添加音频数据
+function addAudioData(pcmData) {
+  // PCM16 -> Float32
+  const samples = new Float32Array(pcmData.length / 2);
+  const view = new DataView(pcmData.buffer);
+  for (let i = 0; i < samples.length; i++) {
+    samples[i] = view.getInt16(i * 2, true) / 32768;
+  }
+  
+  // 追加到缓冲区
+  const newBuffer = new Float32Array(audioBuffer.length + samples.length);
+  newBuffer.set(audioBuffer);
+  newBuffer.set(samples, audioBuffer.length);
+  audioBuffer = newBuffer;
+  
+  // 记录用于保存
+  recordedChunks.push(new Int16Array(pcmData.buffer.slice(0)));
+  
+  // 预缓冲后开始播放
+  if (!isPlaying && audioBuffer.length >= SAMPLE_RATE * PREBUFFER_SEC) {
+    startPlayback();
+  }
+}
+
+// 开始生成
+async function start() {
+  const text = textEl.value.trim();
+  if (!text) {
+    alert('请输入文本');
+    return;
+  }
+  
+  // 重置状态
+  audioBuffer = new Float32Array(0);
+  playbackSamples = 0;
+  recordedChunks = [];
+  latencyEl.textContent = '-';
+  generatedEl.textContent = '0.00';
+  playedEl.textContent = '0.00';
+  logEl.innerHTML = '';
+  
+  // 禁用按钮
+  startBtn.disabled = true;
+  stopBtn.disabled = false;
+  saveBtn.disabled = true;
+  
+  setStatus('连接中...', 'connecting');
+  log('正在连接服务器...');
+  
+  // 构建 WebSocket URL
+  const params = new URLSearchParams({
+    text: text,
+    voice: voiceEl.value,
+    cfg: cfgEl.value,
+    steps: stepsEl.value,
+  });
+  
+  const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  ws = new WebSocket(`${protocol}//${location.host}/stream?${params}`);
+  
+  ws.onopen = () => {
+    log('已连接');
+    setStatus('生成中...', 'streaming');
+  };
+  
+  ws.onmessage = async (e) => {
+    if (e.data instanceof Blob) {
+      // 音频数据
+      const arrayBuffer = await e.data.arrayBuffer();
+      addAudioData(new Uint8Array(arrayBuffer));
+    } else {
+      // JSON 消息
+      const msg = JSON.parse(e.data);
+      switch (msg.type) {
+        case 'start':
+          log('开始生成: ' + msg.text.substring(0, 50) + '...');
+          break;
+        case 'info':
+          latencyEl.textContent = msg.first_chunk_latency.toFixed(3);
+          log(`首块延迟: ${msg.first_chunk_latency.toFixed(3)}s`);
+          break;
+        case 'progress':
+          generatedEl.textContent = msg.generated_seconds.toFixed(2);
+          break;
+        case 'done':
+          log(`生成完成: ${msg.total_seconds}s, 耗时: ${msg.total_time}s`);
+          setStatus('生成完成，正在播放...', 'streaming');
+          saveBtn.disabled = false;
+          break;
+        case 'error':
+          log('错误: ' + msg.message, 'error');
+          setStatus('错误: ' + msg.message, 'error');
+          break;
+      }
+    }
+  };
+  
+  ws.onclose = () => {
+    log('连接已关闭');
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+    if (statusEl.className.includes('streaming')) {
+      setStatus('播放中...', 'streaming');
+      // 等待播放完成
+      const checkDone = setInterval(() => {
+        if (audioBuffer.length === 0 && isPlaying) {
+          setTimeout(() => {
+            stopPlayback();
+            setStatus('完成', 'idle');
+            clearInterval(checkDone);
+          }, 500);
+        }
+      }, 200);
+    }
+  };
+  
+  ws.onerror = (e) => {
+    log('WebSocket 错误', 'error');
+    setStatus('连接错误', 'error');
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+  };
+}
+
+// 停止
+function stop() {
+  if (ws) {
+    ws.close();
+    ws = null;
+  }
+  stopPlayback();
+  setStatus('已停止', 'idle');
+  startBtn.disabled = false;
+  stopBtn.disabled = true;
+  log('已停止');
+}
+
+// 保存音频
+function saveAudio() {
+  if (recordedChunks.length === 0) return;
+  
+  // 计算总样本数
+  let totalSamples = 0;
+  recordedChunks.forEach(chunk => totalSamples += chunk.length);
+  
+  // 创建 WAV 文件
+  const wavBuffer = new ArrayBuffer(44 + totalSamples * 2);
+  const view = new DataView(wavBuffer);
+  
+  // WAV 头
+  const writeString = (offset, str) => {
+    for (let i = 0; i < str.length; i++) {
+      view.setUint8(offset + i, str.charCodeAt(i));
+    }
+  };
+  
+  writeString(0, 'RIFF');
+  view.setUint32(4, 36 + totalSamples * 2, true);
+  writeString(8, 'WAVE');
+  writeString(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
+  view.setUint32(24, SAMPLE_RATE, true);
+  view.setUint32(28, SAMPLE_RATE * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  writeString(36, 'data');
+  view.setUint32(40, totalSamples * 2, true);
+  
+  // 写入 PCM 数据
+  const pcmData = new Int16Array(wavBuffer, 44);
+  let offset = 0;
+  recordedChunks.forEach(chunk => {
+    pcmData.set(chunk, offset);
+    offset += chunk.length;
+  });
+  
+  // 下载
+  const blob = new Blob([wavBuffer], { type: 'audio/wav' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `vibevoice_${Date.now()}.wav`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  log('音频已保存');
+}
+
+// 事件绑定
+cfgEl.oninput = () => cfgValueEl.textContent = cfgEl.value;
+stepsEl.oninput = () => stepsValueEl.textContent = stepsEl.value;
+startBtn.onclick = start;
+stopBtn.onclick = stop;
+saveBtn.onclick = saveAudio;
+
+// 初始化
+init();
+</script>
+</body>
+</html>
