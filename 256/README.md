@@ -1,30 +1,34 @@
 # Youtube 节目：
-## 你的AI绘图没脑子？🤯 只有它懂得“三思而后行”！Step1X-Edit：首款拥有思维链与自我反思的AI修图神器！🚀
-## https://youtu.be/Pz1ooJ9JuJw
+## 腾讯Hunyuan-3D-2.1来了！零门槛、速度快、结构准，本地部署全流程教学
+## https://youtu.be/8wX0l_1dHo0
 
 # 安装指南
 ## 克隆项目
-mkdir step1x  
-cd step1x  
+git clone https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1.git  
+cd Hunyuan3D-2.1  
 
 ## 创建运行环境
-conda create -n step1x python=3.10 -y  
-conda activate step1x   
+conda create -n hunyuan3d-2-1 python=3.10 -y  
+conda activate hunyuan3d-2-1  
 
 ## 安装依赖组件
 pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124  
-pip install transformers==4.55.0 gradio  
-git clone -b step1xedit_v1p2 https://github.com/Peyton-Chen/diffusers.git  
-cd diffusers  
-pip install -e .  
-cd ..  
-pip install megfile qwen-vl-utils accelerate  
+sed -i 's/^bpy==4.0$/# bpy==4.0  # 已通过 mock 方式绕过，无需安装/' requirements.txt  
+pip install -r requirements.txt  
+cd hy3dpaint/custom_rasterizer  
+pip install --no-build-isolation -e .  
+cd ../..  
+cd hy3dpaint/DifferentiableRenderer  
+bash compile_mesh_painter.sh  
+cd ../..  
 
 ## 模型下载
-hf download stepfun-ai/Step1X-Edit-v1p2 --local-dir checkpoints/Step1X-Edit-v1p2    
+hf download tencent/Hunyuan3D-2.1 --local-dir checkpoints/Hunyuan3D-2.1  
+hf download facebook/dinov2-giant --local-dir checkpoints/dinov2-giant  
+wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth -P hy3dpaint/ckpt   
 
 ## 推理演示
-python app.py       
+python app.py        
 
   
 
