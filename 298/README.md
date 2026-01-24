@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别抽卡！Qwen-Image-2512 + ControlNet Union：高智商生图与精准控图的完美结合！
-## https://youtu.be/g8Rq-d9Or1I
+## https://youtu.be/EnAGj4Bynwc
 
 # 安装指南
 ## 克隆项目
