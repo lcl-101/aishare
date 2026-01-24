@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 吊打商业API？Google王牌翻译模型 Translate Gemma 27B 本地部署全攻略！
-## https://youtu.be/sTyunhyMsKo
+## https://youtu.be/p2C7IglhcKg
 
 # 安装指南
 ## 克隆项目
