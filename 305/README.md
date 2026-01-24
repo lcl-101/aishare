@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## Google王炸！Function Gemma：仅几百兆的“特种部队”，打造你的私人本地 AI Agent！
-## https://youtu.be/hl-xOgFQWDU
+## https://youtu.be/4I1c7r1L4DE
 
 # 安装指南
 ## 克隆项目
