@@ -1,6 +1,6 @@
 # Youtube 节目： 
 ##  PDF提取噩梦终结者！这款1B参数开源OCR神器，4G显存完美还原复杂表格，RAG数据清洗必备！
-##  https://youtu.be/vfGhB0eF344
+##  https://youtu.be/Y52d5n6TFBo
  
 # 安装指南 
 ## 创建运行环境 
