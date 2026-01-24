@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 给AI装上“嘴”和“心”！NVIDIA PersonaPlex 深度体验：支持随时打断、音色克隆的实时对话神器
-## https://youtu.be/G8sMnKMaDRQ
+## https://youtu.be/-9KJ1aXQ1Ek
 
 # 安装指南
 ## 克隆项目
