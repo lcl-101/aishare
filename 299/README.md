@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别AI抽卡！一张图任意旋转视角？Fal新神作Multiple Angles LoRA本地部署实战 🔥
-## https://youtu.be/qc8gt5X9XwI
+## https://youtu.be/tcvaVlMZQtE
 
 # 安装指南
 ## 克隆项目
