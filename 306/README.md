@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 吊打Suno？开源音乐生成神器Heart-MuLa来了！本地部署+精准分段控制，免费生成6分钟广播级全长歌曲！
-## https://youtu.be/67_CsJ9H8Ac
+## https://youtu.be/dOVyA1mOPwc
 
 # 安装指南
 ## 克隆项目
