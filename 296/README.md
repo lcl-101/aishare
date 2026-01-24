@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 视频生成界的“终结者”？快手可灵开源 UniVideo：生成、编辑、理解三合一！保姆级本地部署教程 🚀
-## https://youtu.be/Qivo6LkmXeU
+## https://youtu.be/tbuydB9So30
 
 # 安装指南
 ## 克隆项目
