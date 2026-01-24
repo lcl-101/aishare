@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 速度画质不再二选一？FLUX.2 Klein 9B 震撼发布！🔥 4步极速推理 + 顶级画质！
-## https://youtu.be/vIQWHfmK7T8
+## https://youtu.be/15YUfJD781I
 
 # 安装指南
 ## 克隆项目
