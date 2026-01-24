@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 10倍提速！Qwen-Image-2512 只需要4步出图？本地部署这款 Turbo LoRA 让显卡起飞！🚀
-## https://youtu.be/QldWxA0Lm5g
+## https://youtu.be/OVBVkrzzNUs
 
 # 安装指南
 ## 克隆项目
