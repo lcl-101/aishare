@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 霸榜多模态检索！给AI装上“火眼金睛”，Qwen3-VL-Embedding 本地部署全攻略 🔥
-## https://youtu.be/fAX_MizXCqA
+## https://youtu.be/PlvKPQFobTE
 
 # 安装指南
 ## 克隆项目
