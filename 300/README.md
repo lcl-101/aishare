@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 还在为AI写不好中文抓狂？🤯GLM-Image 来了！文字生成零失误 + 懂成语梗，本地部署保姆级教程带你玩转“最懂中文”的画师！
-## https://youtu.be/J9fghu5nTlw
+## https://youtu.be/WbjBBgqgnLc
 
 # 安装指南
 ## 克隆项目
