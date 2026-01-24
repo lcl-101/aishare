@@ -1,6 +1,6 @@
 # Youtube 节目： 
 ##  显卡里的AI医生！谷歌 MedGemma 1.5 本地部署全指南：读懂X光片、写诊断报告，隐私完全可控！
-##  https://youtu.be/vHrxdMDtZ_U
+##  https://youtu.be/FrLFOrNoIlI
  
 # 安装指南 
 ## 创建运行环境 
