@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 显存仅8G！NVIDIA开源Nemotron-0.6B：50分钟音频2分钟转完？抗噪强、速度快，英语转写新神器！
-## https://youtu.be/oCmuNMfzzmo
+## https://youtu.be/cQR8mR62LsY
 
 # 安装指南
 ## 克隆项目
