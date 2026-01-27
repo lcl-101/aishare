@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 40倍推理加速！普通显卡也能跑SOTA级文生图？LightX2V 零日适配 Qwen-Image-2512 实战部署 🔥
-## https://youtu.be/Xk6KvgVvrps
+## https://youtu.be/v7VvI-lKi-0
 
 # 安装指南
 ## 克隆项目
