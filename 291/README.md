@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 视频生成提速100倍？Turbo Diffusion 本地部署全攻略！告别漫长渲染，实现准实时生成！🚀
-## https://youtu.be/au6MsEJyFnU
+## https://youtu.be/ui3ApZusk-s
 
 # 安装指南
 ## 克隆项目
