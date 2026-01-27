@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 像写诗一样画图！引入强化学习的生图怪兽 NextStep-1.1：高清/写字/逻辑全精通 🔥
-## https://youtu.be/kQBByyvMUYs
+## https://youtu.be/WufGYz7ThZY
 
 # 安装指南
 ## 克隆项目
