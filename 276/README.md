@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 碾压传统TTS？VoxCPM 1.5 强力发布：支持情感微调的开源语音克隆神器！
-## https://youtu.be/HcLSedj0x6A
+## https://youtu.be/34UqR3ZcwsQ
 
 # 安装指南
 ## 克隆项目
