@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 补齐最后一块短板！Controlnet Union 2.0 震撼发布：支持 Inpainting 重绘，打造 Z-Image-Turbo 全能工作流！
-## https://youtu.be/fpu_VVj7x2M
+## https://youtu.be/CGFhjKgjSgI
 
 # 安装指南
 ## 克隆项目
