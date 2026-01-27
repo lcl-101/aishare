@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别 PDF 乱码与手动录入！字节跳动 DolphinV2 重磅开源：3B 参数、全能文档解析、RAG 必备神器！🔥
-## https://youtu.be/T1NTaQyxEQ4
+## https://youtu.be/EXNBFNRBTC8
 
 # 安装指南
 ## 克隆项目
