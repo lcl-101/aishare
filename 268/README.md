@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 3秒复刻任何声音！阿里最强开源语音 AI Fun-CosyVoice 3.0 保姆级本地部署：低延迟流式对话，支持18种方言 🔥
-## https://youtu.be/kdb90bAPJDM
+## https://youtu.be/2oLrpnYjO8I
 
 # 安装指南
 ## 克隆项目
