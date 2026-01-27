@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 免费平替 GPT-4o 语音模式？阿里开源 Fun-Audio-Chat：本地搭建懂情感的全能 AI 助手！
-## https://youtu.be/5-hrOcG0lqA
+## https://youtu.be/WjA9s3H7xa0
 
 # 安装指南
 ## 克隆项目
