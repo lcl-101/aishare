@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI视频生成终极进化！StoryMem：用“记忆”让剧本一键变电影，角色风格高度一致！
-## https://youtu.be/0N509Iod_6o
+## https://youtu.be/uk_eOQy3Lzo
 
 # 安装指南
 ## 克隆项目
