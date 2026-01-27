@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别手动抠图！阿里通义新开源 Qwen-Image-Layered：一键将 JPG 拆解为可编辑图层，直接导出 PPT！本地部署全教程
-## https://youtu.be/kGExqgDCMLc
+## https://youtu.be/qGoQ7q8ae10
 
 # 安装指南
 ## 克隆项目
