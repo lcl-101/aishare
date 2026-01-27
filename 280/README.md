@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## Sora都做不到！开源王炸EgoX：任意视频一键转第一人称视角 🔥 本地部署保姆级教程
-## https://youtu.be/n5RAvQ7qRLQ
+## https://youtu.be/cB0OdFO16E4
 
 # 安装指南
 ## 克隆项目
