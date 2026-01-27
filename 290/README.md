@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 嫌 Flux 2 太慢？Flux 2 Turbo 来了！外挂级加速 LoRA，6倍提速不降质 🔥
-## https://youtu.be/hkyi_ebYQJY
+## https://youtu.be/3DLhOkq9Fu4
 
 # 安装指南
 ## 克隆项目
