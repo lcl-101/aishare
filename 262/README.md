@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 智谱GLM-TTS重磅开源！懂情感、会呼吸的AI配音神器？🔥 3秒克隆+精准多音字控制，保姆级本地部署教程！
-## https://youtu.be/2f28gWA8OgA
+## https://youtu.be/RheQdTurO9E
 
 # 安装指南
 ## 克隆项目
