@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI视频新神？SCAIL保姆级教程：完美复刻3D动作，从此告别“鬼畜”视频
-## https://youtu.be/v30wIerX-vQ
+## https://youtu.be/7vuKV78A82M
 
 # 安装指南
 ## 克隆项目
