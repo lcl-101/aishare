@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI内容安全告急？谷歌“智能手术刀”ShieldGemma2来了！40亿参数图像审核模型本地部署实战
-## https://youtu.be/SaCwe81VAZo
+## https://youtu.be/ELgnIeNyO1M
 
 # 安装指南
 ## 创建运行环境
