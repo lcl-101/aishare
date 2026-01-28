@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI的五官终于齐了！本地部署阿里最强开源多模三态模型Qwen3-Omni，实时语音对话，看懂一切音视频！
-## https://youtu.be/Hh666sY0f4U
+## https://youtu.be/8-SXFXvSDrY
 
 # 安装指南
 ## 克隆项目

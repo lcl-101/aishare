@@ -1,6 +1,6 @@
 # Youtube 节目：
-## NVIDIA 最强开源语音识别模型！免费可商用，性能媲美顶级服务，本地部署 Canary-Qwen-2.5b 保姆级教程
-## https://youtu.be/MlNZgdTI08I
+## 70分钟录音2分钟转完！NVIDIA 开源“最强顺风耳”Canary-Qwen-2.5b：集语音精准转写与智能总结于一体，完全免费可商用！
+## https://youtu.be/WqMkWmSATnU
 
 # 安装指南
 ## 克隆项目
