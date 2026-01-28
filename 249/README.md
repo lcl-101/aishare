@@ -1,6 +1,6 @@
 # Youtube 节目：
-## Ovis-Image：阿里最新力作，专为文字渲染而生，消费级显卡也能跑的排版专家！
-## https://youtu.be/gyJ5KIrUxZk
+## 别再忍受AI乱码了！阿里开源 Ovis-Image：仅7B参数，文字渲染力吊打 GPT-4o！
+## https://youtu.be/-xgK19_io8Y
 
 # 安装指南
 ## 创建项目目录
