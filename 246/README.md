@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## Flux1 只是开始？Flux2 评测与部署：32B 参数的“绘图航母”到底有多强？
-## https://youtu.be/BydoHYvRoUc
+## https://youtu.be/IOD7H7IiTNM
 
 # 安装指南
 ## 创建项目目录
