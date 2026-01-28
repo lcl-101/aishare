@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI视频生成新王炸！美团开源Longcat Video本地部署，一键体验文生视频、图生视频四大功能！
-## https://youtu.be/WJ1Cpa8jYBs
+## https://youtu.be/rYyRaQ5aKLU
 
 # 安装指南
 ## 创建运行环境
