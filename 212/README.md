@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 克隆任何人的声音和情绪！B站开源神器 IndexTTS2 保姆级本地部署教程
-## https://youtu.be/oLnQ2epDwD8
+## https://youtu.be/RH6uidw9Z_E
 
 # 安装指南
 ## 创建运行环境
