@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI视频补全最后一块拼图！实测 HunyuanVideo-Foley：毫秒级声画同步+48K高保真音质，堪比专业拟音师！
-## https://youtu.be/Z1zG6O1BX34
+## https://youtu.be/c0TPckHc_2Q
 
 # 安装指南
 ## 克隆项目
