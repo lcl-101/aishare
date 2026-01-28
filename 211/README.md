@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 碾压DeepL？字节跳动Seed-X开源，把顶尖AI翻译模型带回家！
-## https://youtu.be/Pgk1PKmyLBM
+## https://youtu.be/t0PpyV0XE2s
 
 # 安装指南
 ## 创建运行环境
