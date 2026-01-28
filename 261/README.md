@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 语音识别界的“特种兵”！GLM-ASR-nano 部署教程：小参数大能量，解决方言与低音量痛点！
-## https://youtu.be/7es3AQHBTa8
+## https://youtu.be/gM3CuQtO6KE
 
 # 安装指南
 ## 克隆项目
