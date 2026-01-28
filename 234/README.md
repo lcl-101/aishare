@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI界的理科学霸！阿里开源Ovis，性能超越GPT-4o？原生高分辨率，看清蚂蚁大小文字，秒解数理化难题！(附本地部署教程)
-## https://youtu.be/390CCmP1QVM
+## https://youtu.be/Nzq02mzWtoE
 
 # 安装指南
 ## 克隆项目
