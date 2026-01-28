@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 你只负责写词，作曲编曲交给AI！腾讯 Song-Bloom 项目零基础实战
-## https://youtu.be/uDG7H11B9Qc
+## https://youtu.be/CmeOnEQJ1gY
 
 # 安装指南
 ## 创建运行环境
