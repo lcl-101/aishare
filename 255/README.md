@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 你的AI绘图没脑子？🤯 只有它懂得“三思而后行”！Step1X-Edit：首款拥有思维链与自我反思的AI修图神器！🚀
-## https://youtu.be/Pz1ooJ9JuJw
+## https://youtu.be/l4ycuB7Q4O8
 
 # 安装指南
 ## 克隆项目
