@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别“徒有其表”的3D空壳！NVIDIA重磅开源Part Packer：像工程师一样懂结构的3D生成神器！🔥
-## https://youtu.be/2feq2YwQ8_E
+## https://youtu.be/GUAPM2xszSc
 
 # 安装指南
 ## 克隆项目
