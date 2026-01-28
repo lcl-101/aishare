@@ -1,5 +1,5 @@
 # Youtube 节目：
-## AI绘图界新黑马？Z-Image保姆级部署教程：消费级显卡也能生成的顶尖画质！
+## AI绘图界新黑马？Z-Image-Turbo 保姆级部署教程：消费级显卡也能生成的顶尖画质！
 ## https://youtu.be/Fh0xst4mF5Q
 
 # 安装指南
