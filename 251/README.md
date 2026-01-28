@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别画面抖动！腾讯&南大开源神器 SteadyDancer：让图片丝滑热舞，人物零变形！💃 全流程本地部署实战
-## https://youtu.be/XLpX6btjtHk
+## https://youtu.be/ynVZg26ADWU
 
 # 安装指南
 ## 克隆项目
