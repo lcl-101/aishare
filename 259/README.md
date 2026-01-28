@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别繁琐“炼丹”！几秒钟凭空生成LoRA模型？颠覆认知的开源神器 Qwen-Image-i2l 本地部署实测！
-## https://youtu.be/dMpqNkGnCNk
+## https://youtu.be/Da8hKNlXdxU
 
 # 安装指南
 ## 克隆项目
