@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 社区管理终极利器！OpenAI 开源 AI 法官 gpt-oss-safeguard，用大白话就能定制审核规则！（附本地部署保姆级教程）
-## https://youtu.be/v_QZOmYOq-k
+## https://youtu.be/IzyaTQh-rbc
 
 # 安装指南
 ## 创建项目目录
