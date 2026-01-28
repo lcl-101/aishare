@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI视频生成新标杆！Infinity-Star：文生图/视频、图生视频、长视频续写全搞定 (含本地部署) 
-## https://youtu.be/94ZYTjfkC9U
+## https://youtu.be/ImTLCviimes
 
 # 安装指南
 ## 克隆项目
