@@ -1,6 +1,6 @@
 # Youtube 节目：
-## AI 终于长眼睛了！阿里通义千问 Qwen-VL 本地部署教程，看懂视频、分析财报、控制电脑！
-## https://youtu.be/O5Ef18JP52k
+## AI 终于长眼睛了！阿里通义千问 Qwen3-VL 本地部署教程，看懂视频、分析财报、控制电脑！
+## https://youtu.be/peI3D6D3oT4
 
 # 安装指南
 ## 克隆项目
