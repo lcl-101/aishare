@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别视频抠图！微信开源神器 WAN Alpha，一键生成透明背景视频，彻底解放你的生产力！
-## https://youtu.be/E9-jCApC4_I
+## https://youtu.be/HiI--gY809Y
 
 # 安装指南
 ## 创建运行环境
