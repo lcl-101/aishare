@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 视频界的实时高清滤镜！开源项目 FlashVSR 本地部署与实战
-## https://youtu.be/iZcOVi_HmPE
+## https://youtu.be/4oxpR0qib6g
 
 # 安装指南
 ## 克隆项目
