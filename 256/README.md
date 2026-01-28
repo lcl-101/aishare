@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 腾讯Hunyuan-3D-2.1来了！零门槛、速度快、结构准，本地部署全流程教学
-## https://youtu.be/8wX0l_1dHo0
+## https://youtu.be/gLY2mN6VD3I
 
 # 安装指南
 ## 克隆项目
