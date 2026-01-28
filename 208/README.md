@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 让任何图片跳舞！阿里开源神器 WAN Animate，保姆级本地部署教程（含独家WebUI）
-## https://youtu.be/-jcW4nkmyP0
+## https://youtu.be/t0PpyV0XE2s
 
 # 安装指南
 ## 创建运行环境
