@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 从零到一：本地部署 Stable Video Infinity，一键生成无限循环、稳定流畅的AI视频！
-## https://youtu.be/WYmwRWiehNE
+## https://youtu.be/mRKPvoYpZAg
 
 # 安装指南
 ## 创建运行环境
