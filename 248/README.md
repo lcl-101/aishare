@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 只有7B参数却能看懂《小丑》？腾讯开源 Arc-Hunyuan-Video-7B：视频理解AI的终极形态！
-## https://youtu.be/Hq4KJJ_gHWc
+## https://youtu.be/JLc-QyoTuJ0
 
 # 安装指南
 ## 创建项目目录

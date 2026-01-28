@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI音乐界的ChatGPT？YuE(乐)开源模型实测：支持中英日韩，一键生成专业级全曲！
-## https://youtu.be/bcy9e3i-l7c
+## https://youtu.be/grCyOY6keiM
 
 # 安装指南
 ## 创建项目目录

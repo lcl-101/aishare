@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 还在等TTS生成？Dia2 开源模型实测：毫秒级响应+双人对话，重塑 AI 语音交互体验！
-## https://youtu.be/fTfgbgK6kVM
+## https://youtu.be/gQDxIiS4btA
 
 # 安装指南
 ## 克隆项目

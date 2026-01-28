@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 腾讯混元OCR重磅开源：1B小模型吊打大模型？图片秒变Markdown/LaTeX，本地部署保姆级教程！
-## https://youtu.be/OtRPUNH_-UI
+## https://youtu.be/GUAPM2xszSc
 
 # 安装指南
 ## 克隆项目
