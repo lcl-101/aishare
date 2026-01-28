@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 🛡️ 你的AI需要一个保镖！免费开源的内容安全卫士 Qwen3 Guard 本地部署保姆级教程
-## https://youtu.be/PPxC1Auna2E
+## https://youtu.be/FZoGfqgt5vk
 
 # 安装指南
 ## 创建运行环境
