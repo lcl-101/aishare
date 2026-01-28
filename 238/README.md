@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 一张照片秒变3D数字人！Meta重磅开源SAM-3D-Body：好莱坞级人体重建，本地部署保姆级教程！🔥
-## https://youtu.be/0GLOKPDl8zc
+## https://youtu.be/eyxYff8IwTk
 
 # 安装指南
 ## 克隆项目
