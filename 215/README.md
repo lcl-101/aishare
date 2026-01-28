@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 超越商业模型？实测字节跳动 DreamOmni2，从零部署，体验AI图像生成与编辑的魔法！
-## https://youtu.be/9dTozqJhh6I
+## https://youtu.be/VOTSmdDubyg
 
 # 安装指南
 ## 创建运行环境
