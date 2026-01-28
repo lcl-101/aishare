@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 阿里重磅开源！Live-Avatar：14B参数打造电影级数字人，告别“塑料感”！🚀 基于Wan-14B扩散模型，单卡本地部署全攻略
-## https://youtu.be/42-XrDXY_gs
+## https://youtu.be/ZVIiFH0nGME
 
 # 安装指南
 ## 克隆项目
