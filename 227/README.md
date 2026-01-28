@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 【AI抠图神器】告别PS！Rembg本地部署，一键移除任何背景，还能训练自己的模型！
-## https://youtu.be/6br4yo7va9w
+## https://youtu.be/ShqswcdYq14
 
 # 安装指南
 ## 克隆项目
