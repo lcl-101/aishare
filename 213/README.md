@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 视频不再是默片！Character.AI 开源视频模型 OVI 保姆级部署教程，轻松生成带对话和音效的 AI 视频！
-## https://youtu.be/On9vNyMEJEo  
+## https://youtu.be/L-eNeRBUN-M  
 
 # 安装指南
 ## 创建运行环境
