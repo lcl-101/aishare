@@ -1,6 +1,6 @@
 # Youtube 节目：
-## 听懂人话的修图师： Longcat-Image-Edit 实战，一句话指令实现“换装”、“换背景”，还能保持画面一致性。
-## https://youtu.be/XwQcOffcmu4
+## 告别AI乱码！美团开源神器 Longcat-Image：中文汉字渲染的天花板，6B模型也能写对中国字！🔥
+## https://youtu.be/VUU7zf904HE
 
 # 安装指南
 ## 克隆项目
