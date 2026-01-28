@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI 配音导演 MAYA1：一句话指令，让AI“演”出喜怒哀乐！从零开始本地部署+实战演示。
-## https://youtu.be/1OJfSWwOpm4
+## https://youtu.be/u45SYFzEmlY
 
 # 安装指南
 ## 克隆项目

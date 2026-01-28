@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI 学会观察世界了？悟界 Emu 3.5 深度解析与本地部署，亲手体验“预测下一秒”的魔力！
-## https://youtu.be/euU9_Hc-vmY
+## https://youtu.be/JukhqZ_wa-Y
 
 # 安装指南
 ## 克隆项目
