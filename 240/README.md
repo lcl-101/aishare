@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 画质换速度？淘宝 VividVR 深度体验：这是目前开源界最慢、却也是最强的视频修复模型！
-## https://youtu.be/Me-fnmCqb7c
+## https://youtu.be/qlWvjkLErNk
 
 # 安装指南
 ## 克隆项目
