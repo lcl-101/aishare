@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 终结手动抄写！最强开源OCR神器 DeepSeek-OCR 本地部署保姆级教程 (附独家WebUI)
-## https://youtu.be/JJbOjBcGjeE
+## https://youtu.be/UCZTWGTxubg
 
 # 安装指南
 ## 创建运行环境
