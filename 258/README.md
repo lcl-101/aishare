@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## One-to-All-Animation，无需裁剪、无需对齐！这款 AI 动画神器彻底解放双手，从零开始本地部署指南
-## https://youtu.be/y5K8VoPfdUs
+## https://youtu.be/rBnUsQDa5rk
 
 # 安装指南
 ## 克隆项目
