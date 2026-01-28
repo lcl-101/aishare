@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 唯快不破！VibeVoice-realtime-0.5B 上手实测：五步搞定本地流式语音交互
-## https://youtu.be/-OQ_TWyNjEo
+## https://youtu.be/48hn-_H6w_Y
 
 # 安装指南
 ## 克隆项目
