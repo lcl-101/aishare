@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 腾讯王炸开源！Hunyuan-Video-1.5：单卡跑通电影级视频生成？从零部署保姆级教程 + 实测！
-## https://youtu.be/e5xMmGCl3aE
+## https://youtu.be/2G1uePB2QqA
 
 # 安装指南
 ## 克隆项目
