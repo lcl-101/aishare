@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 给声音加点“戏”！能克隆任何音色、一句话改变情绪的AI音频编辑器 Step-audio-editx 来了！
-## https://youtu.be/OhzRjV72Rg0
+## https://youtu.be/kj-msOp9qXs
 
 # 安装指南
 ## 克隆项目
