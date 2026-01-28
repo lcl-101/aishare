@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 一张照片复活人物？腾讯开源最强数字人引擎 Hunyuan-Video-Avatar！本地部署+实测 🚀
-## https://youtu.be/dHqhai4x8S0
+## https://youtu.be/BUXYfDDg-hQ
 
 # 安装指南
 ## 克隆项目
