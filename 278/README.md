@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别AI修图“变脸”！Qwen-Image-Edit-2511 震撼发布：多人物完美融合、内置LoRA、工业级精准控制，开源可商用！🚀
-## https://youtu.be/uiwp9AgWj68
+## https://youtu.be/cC_5zch2Ysw
 
 # 安装指南
 ## 克隆项目

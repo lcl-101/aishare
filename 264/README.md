@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 3D生成界的Flux来了？Step-1X-3D强势开源！🔥 20亿参数+原生3D架构，零成本打造工业级3D资产！(本地部署保姆级教程)
-## https://youtu.be/K0ufz2umO6s
+## https://youtu.be/6-_pwMUusuU
 
 # 安装指南
 ## 克隆项目

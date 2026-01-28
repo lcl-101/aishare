@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI 生成的视频也能有“记忆”？腾讯混元 World 1.5 开源部署全流程，实测键盘控制镜头！
-## https://youtu.be/hkIdtRgDM2U
+## https://youtu.be/Q_QE6faFZdA
 
 # 安装指南
 ## 克隆项目

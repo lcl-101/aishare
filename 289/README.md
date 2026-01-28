@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 显存减半，速度翻倍！开源神器 SpotEdit 本地部署：零训练实现像素级精准修图 🔥
-## https://youtu.be/THtx1R4fyg4
+## https://youtu.be/azKqqIzJmYg
 
 # 安装指南
 ## 克隆项目

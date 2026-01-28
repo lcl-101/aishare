@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 突破时长极限！美团开源 LongCat-Video-Avatar：一张照片生成无限时长数字人，支持多人同框对话！ 
-## https://youtu.be/WgZEjFERjus
+## https://youtu.be/KpeXqA8nj2M
 
 # 安装指南
 ## 克隆项目

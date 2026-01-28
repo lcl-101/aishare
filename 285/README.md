@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 免费的“虚拟动捕演员”住进电脑？腾讯这一波开源太炸了！实测 HY-Motion
-## https://youtu.be/39vy-MffrEA
+## https://youtu.be/_DwezQMgeOE
 
 # 安装指南
 ## 克隆项目

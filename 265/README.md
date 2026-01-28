@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 显存救星！TwinFlow 开源：告别教师模型，单卡跑 20B 大模型，两步推理生成高质量图片！🚀
-## https://youtu.be/NHJIw58BtyA
+## https://youtu.be/361j7wB_JFY
 
 # 安装指南
 ## 克隆项目

@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 给AI视频装上“方向盘”！阿里开源Wan-Move：指哪打哪的像素级运动控制，告别画面随机乱跑！
-## https://youtu.be/3gzxbbngNZQ
+## https://youtu.be/uFjJX1HylxA
 
 # 安装指南
 ## 克隆项目

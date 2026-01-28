@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 语音识别六边形战士！FunASR本地部署实战：支持粤语/客家话，抗噪能力Max，比Whisper更懂中文！
-## https://youtu.be/rePYDmgcf9I
+## https://youtu.be/f_TCLjtE8kc
 
 # 安装指南
 ## 克隆项目

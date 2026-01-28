@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 免费开源！LTX-2 本地部署实战：首个自带音效的DiT视频模型，支持首尾帧控制与LoRA运镜！ 🚀
-## https://youtu.be/GqXsN2T_KzQ
+## https://youtu.be/EHHhiDhDRyg
 
 # 安装指南
 ## 克隆项目

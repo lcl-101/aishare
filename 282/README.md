@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 免费商用！3秒克隆声音的开源神器 Chatterbox：支持笑声/叹气情感控制，本地部署保姆级教程
-## https://youtu.be/8n7fClkcIP0
+## https://youtu.be/11tkYyWW2K8
 
 # 安装指南
 ## 克隆项目

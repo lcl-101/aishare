@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别废片！开源神器 Genfocus：基于 Flux 打造，一键实现“先拍照后对焦”与模糊修复！
-## https://youtu.be/FjxAsjs3Cbs
+## https://youtu.be/nD3MfUDRb4M
 
 # 安装指南
 ## 克隆项目

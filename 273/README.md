@@ -1,7 +1,6 @@
 # Youtube 节目：
 ## 视觉 AI 的“火眼金睛”！8B 参数实现越级挑战，Molmo2 带你解锁视频定位与追踪新高度 👁️
-## https://youtu.be/fjQzOYzyslA
-
+## https://youtu.be/uzTx6Pku8Mc
 # 安装指南
 ## 克隆项目
 mkdir molmo  

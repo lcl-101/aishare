@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 超越Runway/可灵？LongVie2 来了！无限流长视频生成+精准指哪打哪，本地部署保姆级教程！🚀
-## https://youtu.be/yQ-TSaupTJ4
+## https://youtu.be/biSNL5lujq0
 
 # 安装指南
 ## 克隆项目

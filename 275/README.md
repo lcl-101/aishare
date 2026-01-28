@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 告别脸部扭曲！电影级AI肖像动画神器 Flash Portrait：长视频不走样，完美复刻表情神操作！(含本地部署保姆级教程)
-## https://youtu.be/d-EuEyEJje8
+## https://youtu.be/CiHVJkZ40SE
 
 # 安装指南
 ## 克隆项目

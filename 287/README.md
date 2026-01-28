@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## 想要懂“黑话”的私人翻译官？教你本地部署混元 MT 1.5：支持术语干预、全量微调！
-## https://youtu.be/E4CrNmMy6sw
+## https://youtu.be/qRaicF1T9lU
 
 # 安装指南
 ## 克隆项目

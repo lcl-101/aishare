@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## Trellis2 震撼开源：40亿参数挑战商业级 3D 生成，PBR材质/透明纹理完美还原！🔥 本地部署保姆级教程
-## https://youtu.be/t4uRB7OA7ko
+## https://youtu.be/GyOyJNFJwHg
 
 # 安装指南
 ## 克隆项目

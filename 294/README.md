@@ -1,6 +1,6 @@
 # Youtube 节目：
 ## AI音乐制作人必备！本地部署SongPrep：精准提取歌词、自动划分主副歌 (保姆级教程)
-## https://youtu.be/mzEfniVzYIA
+## https://youtu.be/btm0H3RTwww
 
 # 安装指南
 ## 克隆项目
