@@ -1,0 +1,17 @@
+# Ubuntu inference-only dependencies
+# PyTorch (non-Windows, non-macOS)
+torch==2.7.1; sys_platform != 'win32' and sys_platform != 'darwin'
+torchaudio==2.7.1; sys_platform != 'win32' and sys_platform != 'darwin'
+
+# Core inference dependencies
+transformers>=4.51.0,<4.58.0
+diffusers
+gradio>=6.5.1
+soundfile>=0.13.1
+loguru>=0.7.3
+einops>=0.8.1
+accelerate>=1.12.0
+numba>=0.63.1
+vector-quantize-pytorch>=1.27.15
+torchcodec>=0.9.1; sys_platform != 'darwin' or platform_machine == 'arm64'
+modelscope
